@@ -1,0 +1,12 @@
+.example-card {
+  max-width: 600px;
+}
+
+.example-header-image {
+  background-size: cover;
+}
+
+.imgFlex {
+  width: 50px;
+  height: 45px;
+}

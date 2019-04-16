@@ -1,0 +1,110 @@
+<div class="example-container">
+  <form class="example-form" #formBook="ngForm" (ngSubmit)="onSaveAgenda(formBook)">
+    <mat-card class="example-card">
+    <mat-card-header>
+      <input type="hidden" id="userid" name="userid" [(ngModel)]="this.post.Directorio.id">
+      <div mat-card-avatar class="example-header-image"><img [src]="imageUrl" class="imgFlex"/></div>
+      <mat-card-title>{{!this.post.Directorio.id ? 'Nuevo Registro' : 'Actualizar Registro'}}</mat-card-title>
+      <mat-card-subtitle>Formulario de Acción</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+
+      <table class="example-full-width" cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input name="nombre" id="nombre" matInput placeholder="Nombre" [(ngModel)]="this.post.Directorio.nombre">
+              <mat-icon matSuffix>perm_identity</mat-icon>
+            </mat-form-field>
+          </td>
+          <td></td>
+          <td>
+            <mat-form-field appearance="outline">
+              <mat-label>Apellido Paterno</mat-label>
+              <input name="apepaterno" id="apepaterno" matInput placeholder="A. Paterno" [(ngModel)]="this.post.Directorio.apepaterno">
+              <mat-icon matSuffix>perm_identity</mat-icon>
+            </mat-form-field>
+          </td>
+          <td></td>
+          <td>
+            <mat-form-field appearance="outline">
+              <mat-label>Apellido Materno</mat-label>
+              <input name="apematerno" id="apematerno" matInput placeholder="A. Materno" [(ngModel)]="this.post.Directorio.apematerno">
+              <mat-icon matSuffix>perm_identity</mat-icon>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+
+      <table class="example-full-width" cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field appearance="outline">
+              <mat-label>Dirección</mat-label>
+              <input name="direccion" id="direccion" matInput placeholder="Dirección" [(ngModel)]="this.post.Directorio.direccion">
+              <mat-icon matSuffix>location_city</mat-icon>
+            </mat-form-field>
+          </td>
+          <td></td>
+          <td>
+            <mat-form-field appearance="outline">
+              <mat-label>Correo</mat-label>
+              <input name="email" id="email" matInput placeholder="Correo" [(ngModel)]="this.post.Directorio.email">
+              <mat-icon matSuffix>email</mat-icon>
+            </mat-form-field>
+          </td>
+          <td></td>
+          <td>
+            <mat-form-field appearance="outline">
+              <mat-label>Teléfono</mat-label>
+              <input type="tel" name="telefonos" id="telefonos" matInput placeholder="Telefono" [(ngModel)]="this.post.Directorio.telefonos">
+              <mat-icon matSuffix>phone</mat-icon>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+
+      <table class="example-full-width" cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field appearance="outline">
+              <mat-label>área</mat-label>
+              <input name="area" id="area" matInput placeholder="Área" [(ngModel)]="this.post.Directorio.area">
+              <mat-icon matSuffix>work</mat-icon>
+            </mat-form-field>
+          </td>
+          <td></td>
+          <td>
+            <mat-form-field appearance="outline">
+              <mat-label>Departamento</mat-label>
+              <input name="departamento" id="departamento" matInput placeholder="Departamento" [(ngModel)]="this.post.Directorio.departamento">
+              <mat-icon matSuffix>work</mat-icon>
+            </mat-form-field>
+          </td>
+          <td></td>
+          <td>
+            <mat-form-field appearance="outline">
+              <mat-label>Cargo</mat-label>
+              <input name="cargo" id="cargo" matInput placeholder="Cargo" [(ngModel)]="this.post.Directorio.cargo">
+              <mat-icon matSuffix>assignment_ind</mat-icon>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+
+      <mat-form-field class="example-full-width">
+        <textarea name="descripcion" id="descripcion" matInput placeholder="Descripción" [(ngModel)]="this.post.Directorio.descripcion"></textarea>
+      </mat-form-field>
+      <p>
+      <input type="file" name="foto" id="foto" (change)="handleFileUpload($event.target.files)" accept=".jpg,.png" [(ngModel)]="this.post.Directorio.foto"/>
+      </p>
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button type="submit" mat-flat-button color="primary">Agregar</button>
+    </mat-card-actions>
+  </mat-card>
+
+  </form>
+</div>

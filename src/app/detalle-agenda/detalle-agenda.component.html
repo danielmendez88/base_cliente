@@ -1,0 +1,45 @@
+<mat-card  class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"><img src="{{ user.foto }}" class="imgFlex"/></div>
+    <mat-card-title>{{ user.nombre }}</mat-card-title>
+    <mat-card-subtitle>{{ user.apepaterno }} {{ user.apematerno }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+      <p class="card-text">
+        <mat-label><strong>Dirección:</strong></mat-label>
+        {{ user.direccion }}
+      </p>
+      <p class="card-text">
+        <mat-label><strong>Correo Electrónico:</strong></mat-label>
+        {{ user.email }}
+      </p>
+      <p class="card-text">
+        <mat-label><strong>Telefónos:</strong></mat-label>
+        {{ user.telefonos }}
+      </p>
+
+      <p class="card-text">
+        <mat-label><strong>Cargo:</strong></mat-label>
+        {{ user.departamento }}
+      </p>
+
+      <p class="card-text">
+        <mat-label><strong>Área:</strong></mat-label>
+        {{ user.area }}
+      </p>
+
+      <p class="card-text">
+        <mat-label><strong>Cargo:</strong></mat-label>
+        {{ user.cargo }}
+      </p>
+
+      <p class="card-text">
+        <mat-label><strong>Descripción:</strong></mat-label>
+        {{ user.descripcion }}
+      </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="warn" routerLink="/product-edit/{{user.id}}">Actualizar</button>
+    <button mat-raised-button color="accent" (click)="openDialog(user.id)">Eliminar Registro</button>
+  </mat-card-actions>
+</mat-card>

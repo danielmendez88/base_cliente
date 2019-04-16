@@ -1,7 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+// rutas
+import { AgendaComponent } from './agenda/agenda.component';
+import { DetalleAgendaComponent } from './detalle-agenda/detalle-agenda.component';
+import { Page404Component } from './page404/page404.component';
+import { NuevoUsuarioComponent } from './nuevo-usuario/nuevo-usuario.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', component: AgendaComponent},
+  { path: 'agenda/list', component: AgendaComponent },
+  { path: 'usuario/nuevo', component: NuevoUsuarioComponent},
+  { path: 'usuario/:id', component: DetalleAgendaComponent},
+  { path: '**', component: Page404Component}
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
