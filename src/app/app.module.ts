@@ -21,6 +21,7 @@ import { NuevoUsuarioComponent } from './nuevo-usuario/nuevo-usuario.component';
 import { EditAgendaComponent } from './edit-agenda/edit-agenda.component';
 // formularios
 import { ReactiveFormsModule, FormsModule  } from '@angular/forms';
+import { DocumentoComisionComponent } from './documento-comision/documento-comision.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ReactiveFormsModule, FormsModule  } from '@angular/forms';
     Page404Component,
     NuevoUsuarioComponent,
     EditAgendaComponent,
+    DocumentoComisionComponent,
   ],
   imports: [
     BrowserModule,
