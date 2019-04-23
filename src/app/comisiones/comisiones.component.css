@@ -1,0 +1,24 @@
+.comisiones {
+    padding:30px
+}
+/* .avatar {
+  background-image: url(../../../assets/logo.svg);
+  background-size: cover;
+} */
+
+.example-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.example-container > * {
+  width: 100%;
+}
+
+mat-radio-button {
+  margin: 5px;
+}
+
+table {
+  width: 100%;
+}

@@ -1,40 +1,31 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+<mat-accordion >
+  <mat-expansion-panel *ngFor="let item of comisiones; let i = index">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        N°Comision: {{ item.no_comision }} - Creada: {{ item.created_at | date: 'dd/MM/yyyy \'a\' hh:mm a' }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
 
-  <!-- Position Column -->
-  <ng-container matColumnDef="nombre">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
-    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-  </ng-container>
+    <mat-form-field fxLayout *ngFor="let lugares of item.lugares_comision; let j = index">
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="apepaterno">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellido Paterno </th>
-    <td mat-cell *matCellDef="let element"> {{element.apepaterno}} </td>
-  </ng-container>
+      <mat-label> Inicio: {{ lugares.fecha_inicio | date: 'dd/MM/yyyy' }} - </mat-label>
+      
+      <mat-label> Final: {{ lugares.fecha_termino | date: 'dd/MM/yyyy' }} </mat-label>
+      <input matInput placeholder="Lugares" value="{{ lugares.sede }}" readonly>
+      <br>
+      <a> Total de Días: {{ lugares.total_dias }} </a>
+      <br>
+      <a> Cuota diaria: ${{ lugares.cuota_diaria }} </a> 
+  </mat-form-field>
+  
 
-  <!-- Weight Column -->
-  <ng-container matColumnDef="apematerno">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellido Materno </th>
-    <td mat-cell *matCellDef="let element"> {{element.apematerno}} </td>
-  </ng-container>
 
-  <!-- Symbol Column -->
-  <ng-container matColumnDef="cargo">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Cargo </th>
-    <td mat-cell *matCellDef="let element"> {{element.cargo}} </td>
-  </ng-container>
+    </mat-expansion-panel>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+    </mat-expansion-panel>
 
-  <!-- detalle de contenido -->
-  <ng-container matColumnDef="detalle">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Detalle </th>
-    <td mat-cell *matCellDef="let element">
-      <button mat-button>
-        <mat-icon (click)="editUser(element.id)">contacts</mat-icon>
-      </button>
-    </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-</table>
+    <button mat-button>
+      <mat-icon (click)="editUser(element.id)">contacts</mat-icon>
+    </button>
+  </mat-accordion>

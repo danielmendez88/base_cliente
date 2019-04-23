@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { Observable } from 'rxjs/internal/observable';
+
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { AngendaInterface } from '../models/agenda-interface';
 
-const URL_API = 'http://localhost:8000/';
+const URL_API = 'http://localhost:8000/api/';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +45,7 @@ export class DataApiService {
   }
 
   getAllAgenda(): Observable<any> {
-    return this.http.get(URL_API + 'agendas', this.httpOptions).pipe(
+    return this.http.get(URL_API + 'comisiones', this.httpOptions).pipe(
       map(this.extractData));
   }
 

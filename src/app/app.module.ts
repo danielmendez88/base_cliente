@@ -1,26 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule  } from '@angular/forms';
+import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-// animaciones
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-// material
-import { MaterialModule } from './materia.modeule';
-
-// preparar y configurar el cliente http para leer el servicio
-import { HttpClientModule } from '@angular/common/http';
-import { DetalleAgendaComponent, DialogOAgendaOverview } from './detalle-agenda/detalle-agenda.component';
-import { Page404Component } from './page404/page404.component';
+import { MaterialModule } from './Material/materia.module';
 import { AgendaComponent } from './agenda/agenda.component';
-
-// servicios
-import { DataApiService } from './services/data-api.service';
-import { NuevoUsuarioComponent } from './nuevo-usuario/nuevo-usuario.component';
+import { ComisionesComponent } from './comisiones/comisiones.component';
+import { DetalleAgendaComponent, DialogOAgendaOverview } from './detalle-agenda/detalle-agenda.component';
 import { EditAgendaComponent } from './edit-agenda/edit-agenda.component';
-// formularios
-import { ReactiveFormsModule, FormsModule  } from '@angular/forms';
+import { NuevoUsuarioComponent } from './nuevo-usuario/nuevo-usuario.component';
+import { Page404Component } from './page404/page404.component';
+import { DataApiService } from './services/data-api.service';
 
 @NgModule({
   declarations: [
@@ -31,6 +27,7 @@ import { ReactiveFormsModule, FormsModule  } from '@angular/forms';
     Page404Component,
     NuevoUsuarioComponent,
     EditAgendaComponent,
+    ComisionesComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,9 +36,17 @@ import { ReactiveFormsModule, FormsModule  } from '@angular/forms';
     MaterialModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule ,
+    FormsModule,
+    FlexLayoutModule
   ],
-  providers: [DataApiService],
+  providers: [
+    DataApiService,
+    {
+      provide: MAT_STEPPER_GLOBAL_OPTIONS,
+      useValue: { showError: true }
+    }
+  ],
+  
   bootstrap: [AppComponent],
   entryComponents: [DialogOAgendaOverview]
 })
