@@ -1,0 +1,309 @@
+
+<section class="comisiones" >
+
+<form name="formulario" novalidate [formGroup]="formulario" (ngSubmit)="enviar();">
+    <mat-card fxFlex.xs="100%" fxFlex="400">
+    <mat-card-title>Registro de Comisiones</mat-card-title>
+      <mat-card-content>
+
+        <section>
+          <div fxLayout="column" fxLayoutAlign="space-around end">
+            <mat-card>
+              <mat-card-content>
+                  <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+                    <mat-form-field fxFlex >
+                      <input type="text" matInput placeholder="N° Memorandum" formControlName="no_memorandum">
+                      <mat-error>Campo Requerido</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex>
+                      <input type="text" matInput placeholder="N° Comision" formControlName="no_comision">
+                      <mat-error>Campo Requerido</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex>
+                        <input matInput [matDatepicker]="picker1" placeholder="Fecha" formControlName="fecha">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                      <mat-error>Error: Seleccione la fecha</mat-error>
+                    </mat-form-field>
+                  </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </section>
+
+
+        <section>
+          <div fxLayout="column">
+
+              <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+
+                  <mat-form-field fxFlex >
+                    <input type="text" matInput placeholder="Nombre del Proyecto" formControlName="nombre_proyecto">
+                    <mat-error>Campo Requerido</mat-error>
+                  </mat-form-field>
+
+              </div>
+
+          </div>
+        </section>
+
+        <section>
+            <div fxLayout="column">
+
+                <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+
+                    <mat-form-field fxFlex >
+                      <input type="text" matInput placeholder="Nombre del Comisionado">
+                      <mat-error>Campo Requerido</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex >
+                      <input type="text" matInput placeholder="Categoria">
+                      <mat-error>Campo Requerido</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex >
+                      <input type="text" matInput placeholder="R.F.C">
+                      <mat-error>Campo Requerido</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex >
+                      <input type="text" matInput placeholder="Teléfono y Ext">
+                      <mat-error>Campo Requerido</mat-error>
+                    </mat-form-field>
+
+
+
+                </div>
+
+            </div>
+          </section>
+
+          <section>
+            <div fxLayout="column">
+
+                <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+
+                  <mat-form-field fxFlex >
+                    <textarea rows="5" cols="100" type="text" matInput placeholder="Motivo de la Comisión" formControlName="motivo_comision"></textarea>
+                    <mat-error>Campo Requerido</mat-error>
+                  </mat-form-field>
+                </div>
+
+            </div>
+          </section>
+
+
+
+
+
+          <!-- <mat-form-field fxFlex >
+              <textarea type="text" matInput placeholder="Motivo de la Comisión" formControlName="motivo_comision"></textarea>
+              <mat-error>Campo Requerido</mat-error>
+            </mat-form-field> -->
+
+
+          <!-- <section fxLayout="column">
+            <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+
+              <mat-form-field fxFlex="15">
+                <input type="text" matInput placeholder="N° Memorandum" formControlName="no_memorandum">
+                <mat-error>Campo Requerido</mat-error>
+              </mat-form-field>
+
+              <mat-form-field fxFlex="30">
+                <input type="text" matInput placeholder="N° Comision" formControlName="no_comision">
+                <mat-error>Campo Requerido</mat-error>
+              </mat-form-field>
+
+              <mat-form-field fxFlex="55">
+                  <input matInput [matDatepicker]="picker1" placeholder="Fecha" formControlName="fecha">
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                <mat-error>Error: Seleccione la fecha</mat-error>
+              </mat-form-field>
+
+            </div>
+
+          </section> -->
+
+          <!-- <div class="px-24">
+
+            <button type="button" mat-fab (click)="agregar_form_array(formulario.controls.lugares_comision, form_lugares_comision)"
+              matTooltip="Agregar" aria-label="Add event">
+              <mat-icon>add</mat-icon>
+            </button>
+
+            <div class="courses" fxLayout="row" fxLayoutAlign="center" fxLayoutWrap formArrayName="lugares_comision">
+              <div class="course" *ngFor="let lugares of formulario.controls.lugares_comision.controls; let lug=index" [formGroupName]="lug"
+                fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-md="25" fxFlex.gt-sm="33" [ngClass]="ctrl.tipos_medios[ctrl.dato.controls.sis_usuarios_contactos.controls[suc]?.controls.tipos_medios_id.value - 1]?.nombre">
+
+                <div class="course-content" fxLayout="column">
+
+                  <div class="header" fxLayout="row" fxLayoutAlign="center center" [ngClass]="ctrl.tipos_medios[ctrl.dato.controls.sis_usuarios_contactos.controls[suc]?.controls.tipos_medios_id.value - 1]?.nombre + '-bg'">
+
+                    <div class="category" fxFlex>
+                      {{ctrl.tipos_medios[ctrl.dato.controls.sis_usuarios_contactos.controls[suc]?.controls.tipos_medios_id.value - 1]?.nombre}}
+                    </div>
+
+                    <div class="length" fxLayout="row" fxLayoutAlign="center center">
+                      <mat-icon class="length-icon s-20">{{ctrl.tipos_medios[ctrl.dato.controls.sis_usuarios_contactos.controls[suc]?.controls.tipos_medios_id.value
+                        - 1]?.icon}}</mat-icon>
+                    </div>
+
+                  </div>
+
+                  <div class="content" fxLayout="column" fxLayoutAlign="center center" fxFlex>
+                    <br>
+                    <div class="row" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                      <mat-form-field fxFlex="100">
+                        <mat-select placeholder="{{'GENERAL.MEDIOS_CONTACTO' | translate}}" formControlName="tipos_medios_id">
+                          <mat-option *ngFor="let item of ctrl.tipos_medios; let i = index;" [value]="item.id">
+                            {{item.nombre}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="row" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                      <mat-form-field fxFlex="100">
+                        <input matInput placeholder="{{'GENERAL.VALOR' | translate}}" formControlName="valor">
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="footer" fxLayout="row" fxLayoutAlign="center center">
+                    <button type="buttom" mat-button color="warn" (click)="ctrl.quitar_form_array(ctrl.dato.controls.sis_usuarios_contactos, suc)">
+                      <mat-icon>delete</mat-icon>
+                      {{'GENERAL.QUITAR_LISTA' | translate}}
+                    </button>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div> -->
+
+          <section formArrayName="lugares_comision">
+
+            <div fxLayout="column" *ngFor="let val of formulario.controls.lugares_comision?.controls; let i = index" [formGroupName]="i">
+              <mat-card >
+
+                  <mat-card-header>
+                    <mat-card-title>Lugares {{ i + 1 }}</mat-card-title>
+                  </mat-card-header>
+
+                  <div fxLayout="row" fxLayoutAlign="end center">
+                    <button type="buttom" mat-button color="warn" (click)="quitar_form_array(formulario.controls.lugares_comision?.controls, i)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+
+                  <mat-card-content>
+
+                      <section>
+                        <div fxLayout="column">
+            
+                            <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+          
+
+                                <mat-form-field fxFlex >
+                                  <input type="text" matInput placeholder="Lugar (es) de Comisión" formControlName="sede">
+                                  <mat-error>Campo Requerido</mat-error>
+                                </mat-form-field>
+            
+                                <mat-form-field fxFlex>
+                                    <input matInput [matDatepicker]="picker1" placeholder="Fecha Inicio" formControlName="fecha_inicio">
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                  <mat-error>Error: Seleccione la fecha</mat-error>
+                                </mat-form-field>
+            
+                                <mat-form-field fxFlex>
+                                    <input matInput [matDatepicker]="picker2" placeholder="Fecha Termino" formControlName="fecha_termino">
+                                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker2></mat-datepicker>
+                                  <mat-error>Error: Seleccione la fecha</mat-error>
+                                </mat-form-field>
+
+                            </div>
+            
+                        </div>
+                      </section>
+                      
+                      <section>
+                        <div fxLayout="column">
+            
+                            <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+          
+                              <mat-form-field fxFlex >
+                                <input #cuota type="number" matInput placeholder="Cuota Diaria de Viaticos" formControlName="cuota_diaria" (change)="generarImporte(importes.value, i)">
+                                <mat-error>Campo Requerido</mat-error>
+                              </mat-form-field>
+      
+                              <mat-form-field fxFlex >
+                                <input #dias type="number" matInput placeholder="Total en Dias" formControlName="total_dias" (change)="generarImporte(importes.value, i);
+                                val.get('importe').setValue(importes.value)">
+                                <mat-error>Campo Requerido</mat-error>
+                              </mat-form-field>
+      
+                              <mat-form-field fxFlex >
+                                <input #importes type="text" matInput placeholder="Importe" value="{{ dias.value * cuota.value | number:'3.2-5' }}" readonly >
+                                                                                                                                                                  
+                                <mat-error>Campo Requerido</mat-error>
+                              </mat-form-field>
+
+                            </div>
+            
+                        </div>
+                      </section>
+
+
+                      
+                </mat-card-content>
+              </mat-card>
+              <div fxLayoutAlign="end center">
+
+                  <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+
+                    
+
+                    
+                  
+                      <!-- <p>Total: {{ importes.value }}</p> -->
+                                      
+                  </div>
+              </div>
+            </div>
+            <br>
+            <mat-divider></mat-divider>
+            <br>
+            <div fxLayoutAlign="start center">
+                <p> <strong>Agregar Lugares de Comisión &nbsp; </strong><br/></p>
+                <button type="button" mat-fab color="primary"  
+                  (click)="agregar_form_array(formulario.controls.lugares_comision, form_lugares_comision)"
+                  matTooltip="Agregar" aria-label="Add event">
+                  <mat-icon>add</mat-icon>
+                </button>
+            </div>
+
+
+
+          </section>
+          <br>
+          <mat-divider></mat-divider>
+          <br>
+
+
+          
+          <!-- <button mat-raised-button color="primary" >Guardar</button> -->
+
+
+
+      </mat-card-content>
+    </mat-card>
+</form>
+</section>
+
