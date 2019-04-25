@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { Observable } from 'rxjs/internal/observable';
+
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { AngendaInterface } from '../models/agenda-interface';
 
-const URL_API = 'http://localhost:8000/';
+const URL_API = 'http://localhost:8000/api/';
 
 @Injectable({
   providedIn: 'root'
@@ -30,8 +32,7 @@ export class DataApiService {
 
   private httpOptions = {
     headers: new HttpHeaders({
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/json'
+      'Content-type' : 'application/json'
     })
   };
 
@@ -42,23 +43,24 @@ export class DataApiService {
     return body || {};
   }
 
-  getAllAgenda(): Observable<any> {
-    return this.http.get(URL_API + 'agendas', this.httpOptions).pipe(
+  getListaComisiones(): Observable<any> {
+    return this.http.get(URL_API + 'comisiones', this.httpOptions).pipe(
+      
       map(this.extractData));
   }
 
   DeleteAgenda(id): Observable<any> {
-    return this.http.delete(URL_API + 'agendas/' + id, this.httpOptions);
+    return this.http.delete(URL_API + 'comisiones/' + id, this.httpOptions);
   }
 
   // obtenemos los datos de un sólo usuario que se encuentra registrado
   getUser(id): Observable<any> {
-    return this.http.get(URL_API + 'agendas/' + id, this.httpOptions).pipe( map(this.extractData));
+    return this.http.get(URL_API + 'comisiones/' + id, this.httpOptions).pipe( map(this.extractData));
   }
 
   // insertar un nuevo registro
   saveAgenda(usuario: AngendaInterface): Observable<any> {
-    return this.http.post<AngendaInterface>(URL_API + 'agendas', usuario, this.httpOptions)
+    return this.http.post<AngendaInterface>(URL_API + 'comisiones', usuario, this.httpOptions)
     .pipe(map(data => data));
   }
 

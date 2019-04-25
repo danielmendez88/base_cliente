@@ -1,0 +1,325 @@
+
+<section class="comisiones" >
+
+<form name="formulario" novalidate [formGroup]="formulario" (ngSubmit)="onSubmit(formulario)">
+    <mat-card fxFlex.xs="100%" fxFlex="400">
+    <mat-card-title>Registro de Comisiones</mat-card-title>
+      <mat-card-content>
+
+        <section>
+          <div fxLayout="column" fxLayoutAlign="space-around end">
+            <mat-card>
+              <mat-card-content>
+                  <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+                    <mat-form-field fxFlex >
+                      <input type="text" matInput placeholder="N° Memorandum" formControlName="no_memorandum">
+                      <mat-error>Campo Requerido</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex>
+                      <input type="text" matInput placeholder="N° Comision" formControlName="no_comision">
+                      <mat-error>Campo Requerido</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex>
+                        <input type="date" matInput placeholder="Fecha" formControlName="fecha">
+                      <mat-error>Error: Seleccione la fecha</mat-error>
+                    </mat-form-field>
+                  </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </section>
+
+
+        <section>
+          <div fxLayout="column">
+
+              <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+
+                  <mat-form-field fxFlex >
+                    <input type="text" matInput placeholder="Nombre del Proyecto" formControlName="nombre_proyecto">
+                    <mat-error>Campo Requerido</mat-error>
+                  </mat-form-field>
+
+              </div>
+
+          </div>
+        </section>
+
+        <section>
+          <div fxLayout="column">
+
+              <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+
+                  <mat-form-field fxFlex >
+                    <input type="text" matInput placeholder="Organo Responsable" formControlName="nombre_subdepartamento">
+                    <mat-error>Campo Requerido</mat-error>
+                  </mat-form-field>
+
+              </div>
+
+          </div>
+        </section>
+
+        <section>
+            <div fxLayout="column">
+
+                <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+
+                    <mat-form-field fxFlex >
+                      <input type="text" matInput placeholder="Nombre del Comisionado" formControlName="nombre_comisionado">
+                      <mat-error>Campo Requerido</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex >
+                      <input type="text" matInput placeholder="Categoria" formControlName="categoria">
+                      <mat-error>Campo Requerido</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex >
+                      <input type="text" matInput placeholder="R.F.C" formControlName="rfc">
+                      <mat-error>Campo Requerido</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex >
+                      <input type="text" matInput placeholder="Teléfono y Ext" formControlName="telefono">
+                      <mat-error>Campo Requerido</mat-error>
+                    </mat-form-field>
+
+
+
+                </div>
+
+            </div>
+          </section>
+
+          <section>
+            <div fxLayout="column">
+
+                <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+
+                  <mat-form-field fxFlex >
+                    <textarea rows="5" cols="100" type="text" matInput placeholder="Motivo de la Comisión" formControlName="motivo_comision"></textarea>
+                    <mat-error>Campo Requerido</mat-error>
+                  </mat-form-field>
+                </div>
+
+            </div>
+          </section>
+
+
+          <section formArrayName="lugares_comision">
+
+            <div fxLayout="column" *ngFor="let val of formulario.controls.lugares_comision?.controls; let i = index" [formGroupName]="i">
+              <mat-card >
+
+                  <mat-card-header>
+                    <mat-card-title>Lugares de Comisión {{ i + 1 }}</mat-card-title>
+                  </mat-card-header>
+
+                  <div fxLayout="row" fxLayoutAlign="end center">
+                    <button type="buttom" mat-button color="warn" (click)="quitar_form_array(formulario.controls.lugares_comision?.controls, i)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+
+                  <mat-card-content>
+
+                      <section>
+                        <div fxLayout="column">
+            
+                            <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+          
+
+                                <mat-form-field fxFlex >
+                                  <input type="text" matInput placeholder="Lugar (es) de Comisión" formControlName="sede">
+                                  <mat-error>Campo Requerido</mat-error>
+                                </mat-form-field>
+            
+                                <mat-form-field fxFlex>
+                                    <input type="date" matInput placeholder="Fecha Inicio" formControlName="fecha_inicio" >
+                                  <mat-error>Error: Seleccione la fecha</mat-error>
+                                </mat-form-field>
+            
+                                <mat-form-field fxFlex>
+                                    <input type="date" matInput placeholder="Fecha Termino" formControlName="fecha_termino">
+                                  <mat-error>Error: Seleccione la fecha</mat-error>
+                                </mat-form-field>
+
+                            </div>
+            
+                        </div>
+                      </section>
+                      
+                      <section>
+                        <div fxLayout="column">
+            
+                            <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+          
+                              <mat-form-field fxFlex >
+                                <input #cuota type="number" matInput placeholder="Cuota Diaria de Viaticos" formControlName="cuota_diaria" (change)="val.get('importe').setValue(importes.value); generarTotal();">
+                                <mat-error>Campo Requerido</mat-error>
+                              </mat-form-field>
+      
+                              <mat-form-field fxFlex >
+                                <input #dias type="number" matInput placeholder="Total en Dias" formControlName="total_dias" (change)="val.get('importe').setValue(importes.value); generarTotal();">
+                                <mat-error>Campo Requerido</mat-error>
+                              </mat-form-field>
+      
+                              <mat-form-field fxFlex >
+                                <input #importes type="number" matInput placeholder="Importe" value="{{ dias.value * cuota.value }}" readonly >
+                                                                                                                                                                  
+                                <mat-error>Campo Requerido</mat-error>
+                              </mat-form-field>
+
+                            </div>
+            
+                        </div>
+                      </section>
+
+
+                      
+                </mat-card-content>
+              </mat-card>
+              <div fxLayoutAlign="end center">
+
+                  <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">                    
+                  
+                    <h2>Total: $ {{ total | number:'3.2-5'}}</h2>
+                                      
+                  </div>
+              </div>
+            </div>
+            <br>
+            <mat-divider></mat-divider>
+            <br>
+            <div fxLayoutAlign="start center">
+                <p> <strong>Agregar Lugares de Comisión &nbsp; </strong><br/></p>
+
+                <button type="button" mat-fab color="primary"  
+                  (click)="agregar_form_array(formulario.controls.lugares_comision, form_lugares_comision);"
+                  matTooltip="Agregar" aria-label="Add event">
+                  <mat-icon>add</mat-icon>
+                </button>
+
+            </div>
+
+
+
+          </section>
+          <br>
+          <mat-divider></mat-divider>
+          <br>
+
+          <section>
+
+            <h2 fxLayoutAlign="center center" >
+              Importe de la comisión y recibos
+            </h2>
+
+            <div fxLayout="column">
+
+              <mat-card >
+
+                <mat-card-content>
+                    <div fxLayout.gt-sm="column" fxLayout="column" fxLayoutGap.gt-sm="10px">
+                      <mat-form-field fxFlex >
+                        <input type="number" matInput placeholder="Combustible" formControlName="total_combustible">
+                        <mat-error>Campo Requerido</mat-error>
+                      </mat-form-field>
+  
+                      <mat-form-field fxFlex>
+                        <input type="number" matInput placeholder="Fletes y Maniobras" formControlName="total_fletes_mudanza">
+                        <mat-error>Campo Requerido</mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field fxFlex>
+                        <input type="number" matInput placeholder="Peajes" formControlName="total_peaje">
+                        <mat-error>Campo Requerido</mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field fxFlex>
+                        <input type="number" matInput placeholder="Pasajes Nacionales"  formControlName="total_pasajes_nacionales">
+                        <mat-error>Campo Requerido</mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field fxFlex>
+                        <input type="number" matInput placeholder="Viaticos Nacionales" formControlName="total_viaticos_nacionales" readonly>
+                        <mat-error>Campo Requerido</mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field fxFlex>
+                        <input type="number" matInput placeholder="Viaticos en el Extranjero"  formControlName="total_viaticos_extranjeros">
+                        <mat-error>Campo Requerido</mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field fxFlex>
+                        <input type="number" matInput placeholder="Pasajes Internacionales" formControlName="total_pasajes_internacionales">
+                        <mat-error>Campo Requerido</mat-error>
+                      </mat-form-field>
+  
+                    </div>
+                </mat-card-content>
+              </mat-card>
+
+              <mat-card>
+
+                <mat-card-content>
+                      <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+
+                        <mat-checkbox value="checked" (click)="changeValue(checked)" color="primary" formControlName="es_vehiculo_oficial">
+                            ¿Es Vehiculo Oficial?
+                        </mat-checkbox>
+                        &nbsp;
+                        <mat-checkbox color="primary">
+                            Transporte Publico
+                        </mat-checkbox>
+                        &nbsp;
+                        <mat-checkbox color="primary">
+                            Áereo
+                        </mat-checkbox>
+
+                      </div>
+
+                      <div fxLayout="column">
+                
+                        <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px" *ngIf="checked == false">
+
+                            <mat-form-field  appearance="outline" fxFlex >
+                              <input type="text" matInput placeholder="Placas" formControlName="placas">
+                              <mat-error>Campo Requerido</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field  appearance="outline" fxFlex >
+                              <input type="text" matInput placeholder="Modelo" formControlName="modelo">
+                              <mat-error>Campo Requerido</mat-error>
+                            </mat-form-field>
+
+                          </div>
+
+                      </div>
+   
+                    
+                </mat-card-content>
+              </mat-card>
+
+
+            </div>
+          </section>
+
+<br>
+          
+          <!-- <button mat-raised-button color="primary" (click)="verReactivo()">Guardar</button> -->
+
+          <!-- <button type="submit" mat-flat-button color="primary">Agregar</button> -->
+
+          <button type="submit" [disabled]="!formulario.valid" mat-flat-button color="primary"><mat-icon>save</mat-icon></button>
+
+
+
+      </mat-card-content>
+    </mat-card>
+</form>
+</section>
+

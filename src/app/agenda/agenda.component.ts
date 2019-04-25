@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatTableDataSource, MatSort} from '@angular/material';
-import { DataApiService } from '../services/data-api.service';
 import { Router } from '@angular/router';
+
 import { AngendaInterface } from '../models/agenda-interface';
+import { DataApiService } from '../services/data-api.service';
 
 
 @Component({
@@ -12,30 +13,31 @@ import { AngendaInterface } from '../models/agenda-interface';
 })
 export class AgendaComponent implements OnInit {
 
-  displayedColumns: string[] = ['nombre', 'apepaterno', 'apematerno', 'cargo', 'detalle'];
+  //displayedColumns: string[] = ['no_comision', 'fecha', 'apematerno', 'motivo_comision'];
 
   @ViewChild(MatSort) sort: MatSort;
 
-  directorio: AngendaInterface[];
+  //directorio: AngendaInterface[];
+  comisiones:[] = [];
   isLoading: true;
   dataSource;
 
   constructor(private dataApi: DataApiService, private router: Router) { }
 
   ngOnInit() {
-    this.getListAgenda();
+    this.getListaComisiones();
   }
 
-  getListAgenda() {
-    this.dataApi.getAllAgenda().subscribe(response => {
-      this.directorio = response;
+  getListaComisiones() {
+    this.dataApi.getListaComisiones().subscribe(response => {
+      this.comisiones = response;
       this.dataSource = new MatTableDataSource(response);
       this.dataSource.sort = this.sort;
     });
   }
 
   editUser(id) {
-    this.router.navigate(['usuario/' + id]);
+    this.router.navigate(['comisiones/' + id]);
   }
 
 }

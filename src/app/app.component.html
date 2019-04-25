@@ -1,18 +1,21 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<mat-toolbar color="accent">
+<mat-toolbar color="primary">
 
   <mat-toolbar-row>
-    <span>Agenda Electrónica</span>
+    <span>Comisiones</span>
     <span class="example-spacer"></span>
-    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon>
-    <button mat-button [matMenuTriggerFor]="menu">
-      <mat-icon>view_headline</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item [routerLink]="['/agenda/list']">Listar Agenda</button>
-      <button mat-menu-item [routerLink]="['/usuario/nuevo']">Agregar Nuevo Elemento</button>
-      <button mat-menu-item [routerLink]="['/documento/comision']">Descargar documento (pdf)</button>
-    </mat-menu>
+
+    <div fxLayout="row" fxLayoutAlign="end center">
+
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>view_headline</mat-icon>
+      </button>
+    </div>
+
+        <mat-menu #menu="matMenu"  >
+          <button mat-menu-item [routerLink]="['/comisiones']">Listado de Comisiones</button>
+          <button mat-menu-item [routerLink]="['/comisiones/nuevo']">Generar Comision</button>
+        </mat-menu>
 
   </mat-toolbar-row>
 </mat-toolbar>
