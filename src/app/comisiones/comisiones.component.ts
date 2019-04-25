@@ -1,23 +1,32 @@
-import { Component, OnInit, OnDestroy, Input, Output, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { FormGroup, FormControl, Validators, AbstractControl, FormArray, FormBuilder } from '@angular/forms';
-import {MatBottomSheet, MatBottomSheetRef} from '@angular/material';
+import { FormGroup, FormControl, Validators, AbstractControl, FormArray, FormBuilder, NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
-import { Subscription } from 'rxjs';
+import * as _moment from 'moment';  
 
-import { EventEmitter } from 'protractor';
+import { ComisionApiService } from '../services/comision-api.service';
+
+
+
+
 @Component({
   selector: 'app-comisiones',
   templateUrl: './comisiones.component.html',
   styleUrls: ['./comisiones.component.css'],
-  providers:[{
+  providers:[
+    {
     provide: MAT_STEPPER_GLOBAL_OPTIONS,
     useValue: {showError: true}
-  }]
+    },
+  ]
 })
 export class ComisionesComponent implements OnInit {
-
-  total;
+  
+  defaultDate = new Date;
+  isLoadingResults = false;
+  total: number;
+  checked: boolean = true;
   @ViewChild('importes') importes:ElementRef;
   @ViewChild('cuota') cuota:ElementRef;
   @ViewChild('dias') dias:ElementRef;
@@ -28,44 +37,63 @@ export class ComisionesComponent implements OnInit {
   
   formulario: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    public comision: ComisionApiService,
+    public router: Router
+    ) {
   }
 
   ngOnInit() {
 
+    var fecha = _moment(this.defaultDate).format('YYYY-MM-D');
+
     this.formulario = new FormGroup({
 
+
+      'id':                             new FormControl (''),
+
+      'nombre_comisionado':             new FormControl ('', [Validators.required]),
+      'rfc':                            new FormControl ('', [Validators.required]),
+      'categoria':                      new FormControl ('', [Validators.required]),                    
+      'telefono':                       new FormControl ('', [Validators.required]),
+
+
+      'usuario_id':                     new FormControl (1), 
       'motivo_comision':                new FormControl ('', [Validators.required]),
       'no_memorandum':                  new FormControl ('', [Validators.required]),
       'no_comision':                    new FormControl ('', [Validators.required]),
       'nombre_proyecto':                new FormControl ('', [Validators.required]),
-      'es_vehiculo_oficial':            new FormControl ('', [Validators.required]),
+      'es_vehiculo_oficial':            new FormControl (''),
       'total':                          new FormControl ('', [Validators.required]),
-      'tipo_comision':                  new FormControl ('', [Validators.required]),
+      'tipo_comision':                  new FormControl ('CO'),
       'placas':                         new FormControl (''),
       'modelo':                         new FormControl (''),
-      'status_comision':                new FormControl ('', [Validators.required]),
+      'status_comision':                new FormControl (0),
       'fecha':                          new FormControl ('', [Validators.required]),
-      'total_peaje':                    new FormControl (''),
-      'total_combustible':              new FormControl (''),
-      'total_fletes_mudanza':           new FormControl (''),
-      'total_pasajes_nacionales':       new FormControl (''),
+      'total_peaje':                    new FormControl (0.00),
+      'total_combustible':              new FormControl (0.00),
+      'total_fletes_mudanza':           new FormControl (0.00),
+      'total_pasajes_nacionales':       new FormControl (0.00),
       'total_viaticos_nacionales':      new FormControl ('', [Validators.required]),
-      'total_viaticos_extranjeros':     new FormControl (''),
-      'total_pasajes_internacionales':  new FormControl (''),
+      'total_viaticos_extranjeros':     new FormControl (0.00),
+      'total_pasajes_internacionales':  new FormControl (0.00),
       'nombre_subdepartamento':         new FormControl ('', [Validators.required]),
-      'organo_responsable_id':          new FormControl ('', [Validators.required]),
-      'plantilla_personal_id':          new FormControl ('', [Validators.required]),
+      'organo_responsable_id':          new FormControl (1),
+      'plantilla_personal_id':          new FormControl (1),
       'lugares_comision':               new FormArray([
         
         this.fb.group({
           sede:           ['', [Validators.required]],
           fecha_inicio:   ['', [Validators.required]],
+          es_nacional:    [1],
+          periodo:        [2019],
+          termino:        [fecha],
           fecha_termino:  ['', [Validators.required]],
           cuota_diaria:   ['', [Validators.required]],
           total_dias:     ['', [Validators.required]],
           importe: [''],
-          total: [''],
+
 
         })
       ])
@@ -74,16 +102,24 @@ export class ComisionesComponent implements OnInit {
     this.form_lugares_comision = {
       sede:         ['', [Validators.required]],
       fecha_inicio: ['', [Validators.required]],
+      es_nacional:    [1],
+      periodo:        [2019],
+      termino:        [fecha],
       fecha_termino:['', [Validators.required]],
       cuota_diaria: ['', [Validators.required]],
       total_dias:   ['', [Validators.required]],
       importe: [''],
-      total: [''],
     };
 
+    console.log(this.formulario.value);
+
+    console.log(this.defaultDate);
 
 
+  }
 
+  ngAfterViewInit() {
+    this.defaultDate = new Date();
   }
 
   agregar_form_array(modelo: FormArray, formulario) {
@@ -94,50 +130,78 @@ export class ComisionesComponent implements OnInit {
 
   quitar_form_array(elemento, i: number) {
     elemento.splice(i, 1);
-    //modelo.removeAt(i);
-  }
 
-  generarImporte(importes,i){
-
-    console.log(importes,i);
-
-    // let couta = this.cuota.nativeElement.value;
-    // let dias = this.dias.nativeElement.value;
-
-    // let importes = this.importes.nativeElement.value;
-
-
-    // console.log(importes);
+    this.total = 0;
 
     this.formulario.controls.lugares_comision.value.forEach(element => {
 
-     this.total = element.importe;
+      this.total-= parseFloat(element.importe);
+
+      this.formulario.controls.total.setValue(this.total);
+
+      this.formulario.controls.total_viaticos_nacionales.setValue(this.total);
+    
+      
+    });
+    //modelo.removeAt(i);
+  }
+
+
+  generarTotal(){
+
+    this.total = 0;
+
+    this.formulario.controls.lugares_comision.value.forEach(element => {
+
+      this.total+= parseFloat(element.importe);
+
+      this.formulario.controls.total.setValue(this.total);
+
+      this.formulario.controls.total_viaticos_nacionales.setValue(this.total);
       
     });
 
-      importes = this.total;
-    
-    
 
+    console.log(this.total);
 
-
-
-    //value="$ {{ dias.value * cuota.value | number:'3.2-5' }}"
-   
   }
 
-  generarTotal(){
-    
-    this.total = this.formulario.controls.lugares_comision; // sums to 100
-    var sum = 0;
+  changeValue(value) {
 
-    for (var i = 0; i < this.total.lenght; i++) {
-      sum += this.total[i]
-    }
+    console.log(value);
+    this.checked = !value;
 
-    console.log(sum);
   }
 
-  
+  updateDate(value: any) {
+    console.log(value.value);
+
+    this.formulario.controls.fecha.setValue(_moment(value.start).format('D/MM/YYYY'));
+
+    
+    
+  }
+
+  onSubmit(formComision:NgForm) {
+
+    this.isLoadingResults = true;
+
+    this.comision.addComision(formComision.value)
+      .subscribe(res => {
+          let id = res['id'];
+
+          console.log("aca", res);
+
+          this.isLoadingResults = false;
+          this.formulario.reset();
+          //comisiones/list
+          this.router.navigate(['/comisiones/list']);
+
+        }, (err) => {
+          console.log(err);
+          this.isLoadingResults = false;
+        });
+  }
+
 
 }

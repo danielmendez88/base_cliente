@@ -9,7 +9,7 @@ import { Page404Component } from './page404/page404.component';
 
 const routes: Routes = [
   { path: '', component: AgendaComponent},
-  { path: 'comisiones/lista', component: AgendaComponent },
+  { path: 'comisiones', component: AgendaComponent },
   { path: 'comisiones/nuevo', component: ComisionesComponent},
   { path: 'comisiones/:id', component: DetalleAgendaComponent},
   { path: '**', component: Page404Component}

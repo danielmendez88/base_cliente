@@ -29,7 +29,7 @@ export class AgendaComponent implements OnInit {
   }
 
   getListaComisiones() {
-    this.dataApi.getAllAgenda().subscribe(response => {
+    this.dataApi.getListaComisiones().subscribe(response => {
       this.comisiones = response;
       this.dataSource = new MatTableDataSource(response);
       this.dataSource.sort = this.sort;

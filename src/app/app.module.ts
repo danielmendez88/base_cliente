@@ -18,6 +18,9 @@ import { NuevoUsuarioComponent } from './nuevo-usuario/nuevo-usuario.component';
 import { Page404Component } from './page404/page404.component';
 import { DataApiService } from './services/data-api.service';
 
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +47,9 @@ import { DataApiService } from './services/data-api.service';
     {
       provide: MAT_STEPPER_GLOBAL_OPTIONS,
       useValue: { showError: true }
-    }
+    },
+
+
   ],
   
   bootstrap: [AppComponent],
