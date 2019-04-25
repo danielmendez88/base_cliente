@@ -13,7 +13,6 @@ import {
   MatCardModule,
   MatSelectModule,
   MatProgressSpinnerModule,
-  MatDialogModule,
   MatSnackBarModule,
   MatStepperModule,
   MatRadioModule,
@@ -22,8 +21,11 @@ import {
   MatDatepickerModule,
   MatBottomSheetModule,
   MatMenuModule,
-  MatTableModule
+  MatTableModule,
+  MatPaginatorModule,
 } from '@angular/material';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 
@@ -51,7 +53,13 @@ import {
     MatDatepickerModule,
     MatBottomSheetModule,
     MatMenuModule,
+<<<<<<< HEAD
     MatTableModule
+=======
+    MatTableModule,
+    MatPaginatorModule,
+    MatProgressBarModule
+>>>>>>> comisionLista
   ],
   exports: [
     MatButtonModule,
@@ -75,7 +83,13 @@ import {
     MatDatepickerModule,
     MatBottomSheetModule,
     MatMenuModule,
+<<<<<<< HEAD
     MatTableModule
+=======
+    MatTableModule,
+    MatPaginatorModule,
+    MatProgressBarModule
+>>>>>>> comisionLista
   ],
   declarations: [],
 })

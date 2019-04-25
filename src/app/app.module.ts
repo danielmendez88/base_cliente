@@ -19,7 +19,7 @@ import { Page404Component } from './page404/page404.component';
 import { DataApiService } from './services/data-api.service';
 // formularios
 import { DocumentoComisionComponent } from './documento-comision/documento-comision.component';
-
+import { ComisionesListaComponent, DialogUploadFile } from './comisiones-lista/comisiones-lista.component';
 
 
 @NgModule({
@@ -33,6 +33,8 @@ import { DocumentoComisionComponent } from './documento-comision/documento-comis
     EditAgendaComponent,
     DocumentoComisionComponent,
     ComisionesComponent,
+    ComisionesListaComponent,
+    DialogUploadFile,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,7 @@ import { DocumentoComisionComponent } from './documento-comision/documento-comis
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
   ],
   providers: [
     DataApiService,
@@ -54,7 +56,7 @@ import { DocumentoComisionComponent } from './documento-comision/documento-comis
 
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DialogOAgendaOverview]
+  entryComponents: [DialogOAgendaOverview, DialogUploadFile]
 })
 
 export class AppModule {

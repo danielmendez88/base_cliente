@@ -18,7 +18,6 @@ export class AgendaComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   // directorio: AngendaInterface[];
-  comisiones:[] = [];
   isLoading: true;
   dataSource;
 
@@ -30,7 +29,7 @@ export class AgendaComponent implements OnInit {
 
   getListaComisiones() {
     this.dataApi.getAllAgenda().subscribe(response => {
-      this.comisiones = response;
+      // this.comisiones = response;
       this.dataSource = new MatTableDataSource(response);
       this.dataSource.sort = this.sort;
     });
