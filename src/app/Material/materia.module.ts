@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { 
-  MatButtonModule, 
-  MatIconModule, 
-  MatInputModule, 
-  MatFormFieldModule, 
-  MatCheckboxModule, 
-  MatSidenavModule, 
-  MatToolbarModule, 
+import {
+  MatButtonModule,
+  MatIconModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatCheckboxModule,
+  MatSidenavModule,
+  MatToolbarModule,
   MatListModule,
   MatTabsModule,
   MatCardModule,
   MatSelectModule,
   MatProgressSpinnerModule,
-  MatDialogModule,
   MatSnackBarModule,
   MatStepperModule,
   MatRadioModule,
@@ -22,14 +21,17 @@ import {
   MatDatepickerModule,
   MatBottomSheetModule,
   MatMenuModule,
-  MatTableModule
+  MatTableModule,
+  MatPaginatorModule,
 } from '@angular/material';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 
 @NgModule({
   imports: [
-    CommonModule, 
+    CommonModule,
     MatButtonModule,
     MatIconModule,
     MatInputModule,
@@ -51,8 +53,9 @@ import {
     MatDatepickerModule,
     MatBottomSheetModule,
     MatMenuModule,
-    MatTableModule
-    
+    MatTableModule,
+    MatPaginatorModule,
+    MatProgressBarModule
   ],
   exports: [
     MatButtonModule,
@@ -76,8 +79,9 @@ import {
     MatDatepickerModule,
     MatBottomSheetModule,
     MatMenuModule,
-    MatTableModule
-    
+    MatTableModule,
+    MatPaginatorModule,
+    MatProgressBarModule
   ],
   declarations: [],
 })
