@@ -17,14 +17,10 @@ import { EditAgendaComponent } from './edit-agenda/edit-agenda.component';
 import { NuevoUsuarioComponent } from './nuevo-usuario/nuevo-usuario.component';
 import { Page404Component } from './page404/page404.component';
 import { DataApiService } from './services/data-api.service';
-<<<<<<< HEAD
-import { NuevoUsuarioComponent } from './nuevo-usuario/nuevo-usuario.component';
-import { EditAgendaComponent } from './edit-agenda/edit-agenda.component';
 // formularios
-import { ReactiveFormsModule, FormsModule  } from '@angular/forms';
 import { DocumentoComisionComponent } from './documento-comision/documento-comision.component';
-=======
->>>>>>> 16878b4c096ab768e306f6ddc6ec9e867cdd0f04
+
+
 
 @NgModule({
   declarations: [
@@ -35,11 +31,8 @@ import { DocumentoComisionComponent } from './documento-comision/documento-comis
     Page404Component,
     NuevoUsuarioComponent,
     EditAgendaComponent,
-<<<<<<< HEAD
     DocumentoComisionComponent,
-=======
     ComisionesComponent,
->>>>>>> 16878b4c096ab768e306f6ddc6ec9e867cdd0f04
   ],
   imports: [
     BrowserModule,
@@ -56,9 +49,10 @@ import { DocumentoComisionComponent } from './documento-comision/documento-comis
     {
       provide: MAT_STEPPER_GLOBAL_OPTIONS,
       useValue: { showError: true }
-    }
+    },
+
+
   ],
-  
   bootstrap: [AppComponent],
   entryComponents: [DialogOAgendaOverview]
 })

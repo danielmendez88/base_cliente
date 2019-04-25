@@ -13,11 +13,11 @@ import { DataApiService } from '../services/data-api.service';
 })
 export class AgendaComponent implements OnInit {
 
-  //displayedColumns: string[] = ['no_comision', 'fecha', 'apematerno', 'motivo_comision'];
+  // displayedColumns: string[] = ['no_comision', 'fecha', 'apematerno', 'motivo_comision'];
 
   @ViewChild(MatSort) sort: MatSort;
 
-  //directorio: AngendaInterface[];
+  // directorio: AngendaInterface[];
   comisiones:[] = [];
   isLoading: true;
   dataSource;
