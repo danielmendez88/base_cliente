@@ -1,11 +1,7 @@
 
 <section class="comisiones" >
 
-<<<<<<< HEAD
-<form name="formulario" novalidate [formGroup]="formulario" (ngSubmit)="enviar();">
-=======
 <form name="formulario" novalidate [formGroup]="formulario" (ngSubmit)="onSubmit(formulario)">
->>>>>>> alex
     <mat-card fxFlex.xs="100%" fxFlex="400">
     <mat-card-title>Registro de Comisiones</mat-card-title>
       <mat-card-content>
@@ -26,13 +22,7 @@
                     </mat-form-field>
 
                     <mat-form-field fxFlex>
-<<<<<<< HEAD
-                        <input matInput [matDatepicker]="picker1" placeholder="Fecha" formControlName="fecha">
-                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                        <mat-datepicker #picker1></mat-datepicker>
-=======
                         <input type="date" matInput placeholder="Fecha" formControlName="fecha">
->>>>>>> alex
                       <mat-error>Error: Seleccione la fecha</mat-error>
                     </mat-form-field>
                   </div>
@@ -58,8 +48,6 @@
         </section>
 
         <section>
-<<<<<<< HEAD
-=======
           <div fxLayout="column">
 
               <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
@@ -75,44 +63,27 @@
         </section>
 
         <section>
->>>>>>> alex
             <div fxLayout="column">
 
                 <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
 
                     <mat-form-field fxFlex >
-<<<<<<< HEAD
-                      <input type="text" matInput placeholder="Nombre del Comisionado">
-=======
                       <input type="text" matInput placeholder="Nombre del Comisionado" formControlName="nombre_comisionado">
->>>>>>> alex
                       <mat-error>Campo Requerido</mat-error>
                     </mat-form-field>
 
                     <mat-form-field fxFlex >
-<<<<<<< HEAD
-                      <input type="text" matInput placeholder="Categoria">
-=======
                       <input type="text" matInput placeholder="Categoria" formControlName="categoria">
->>>>>>> alex
                       <mat-error>Campo Requerido</mat-error>
                     </mat-form-field>
 
                     <mat-form-field fxFlex >
-<<<<<<< HEAD
-                      <input type="text" matInput placeholder="R.F.C">
-=======
                       <input type="text" matInput placeholder="R.F.C" formControlName="rfc">
->>>>>>> alex
                       <mat-error>Campo Requerido</mat-error>
                     </mat-form-field>
 
                     <mat-form-field fxFlex >
-<<<<<<< HEAD
-                      <input type="text" matInput placeholder="Teléfono y Ext">
-=======
                       <input type="text" matInput placeholder="Teléfono y Ext" formControlName="telefono">
->>>>>>> alex
                       <mat-error>Campo Requerido</mat-error>
                     </mat-form-field>
 

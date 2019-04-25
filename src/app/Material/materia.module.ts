@@ -53,13 +53,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatDatepickerModule,
     MatBottomSheetModule,
     MatMenuModule,
-<<<<<<< HEAD
-    MatTableModule
-=======
     MatTableModule,
     MatPaginatorModule,
     MatProgressBarModule
->>>>>>> comisionLista
   ],
   exports: [
     MatButtonModule,
@@ -83,13 +79,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatDatepickerModule,
     MatBottomSheetModule,
     MatMenuModule,
-<<<<<<< HEAD
-    MatTableModule
-=======
     MatTableModule,
     MatPaginatorModule,
     MatProgressBarModule
->>>>>>> comisionLista
   ],
   declarations: [],
 })
