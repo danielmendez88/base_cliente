@@ -59,7 +59,7 @@ export class ComisionesComponent implements OnInit {
       'telefono':                       new FormControl ('', [Validators.required]),
 
 
-      'usuario_id':                     new FormControl (1), 
+      'user_id':                        new FormControl (1), 
       'motivo_comision':                new FormControl ('', [Validators.required]),
       'no_memorandum':                  new FormControl ('', [Validators.required]),
       'no_comision':                    new FormControl ('', [Validators.required]),

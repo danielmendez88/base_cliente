@@ -9,7 +9,7 @@ export interface Comisiones {
         rfc?: string,        
         categoria?: string,    
         telefono?: string,        
-        usuario_id?: 1,
+        user_id?: 1,
         es_vehiculo_oficial?: boolean,
         fecha?: Date,
         total?: number,
