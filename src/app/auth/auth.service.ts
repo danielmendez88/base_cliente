@@ -25,7 +25,7 @@ export class AuthService {
 
 
   logIn(email: string, password: string):Observable<any> {
-    const url = `${environment.base_url}/login`;
+    const url = `${environment.API_PATH}/login`;
     return this.http.post<User>(url, { email, password}).pipe(
       map( (response) => {
         console.log(response.token);
@@ -42,7 +42,7 @@ export class AuthService {
   }
 
   signUp(payload) {
-    const url = `${environment.base_url}/signup`;
+    const url = `${environment.API_PATH}/signup`;
     return this.http.post<User>(url,payload).pipe(
       map( (response) => {
         if(response.token){
@@ -55,12 +55,12 @@ export class AuthService {
   }
 
   forgotPassword(email: string):Observable<any> {
-    const url = `${environment.base_url}/forgot-password`;
+    const url = `${environment.API_PATH}/forgot-password`;
     return this.http.post<any>(url, { email });
   }
 
   resetPassword(email:string, password: string, token: string):Observable<any> {
-    const url = `${environment.base_url}/reset-password`;
+    const url = `${environment.API_PATH}/reset-password`;
     return this.http.post<any>(url, {email, password, token}).pipe(
       map( (response) => {
         if(response.token){
