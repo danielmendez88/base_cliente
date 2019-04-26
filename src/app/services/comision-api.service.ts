@@ -7,8 +7,8 @@ import { catchError, tap, map } from 'rxjs/operators';
 import { Comisiones } from '../models/comisiones';
 import { ComisionesComponent } from '../comisiones/comisiones.component';
 
+import { environment } from '../../environments/environment';
 
-const URL_API = 'http://localhost:8000/api/';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +40,7 @@ export class ComisionApiService {
   }
 
   getComisiones (): Observable<Comisiones[]> {
-    return this.http.get<Comisiones[]>(URL_API)
+    return this.http.get<Comisiones[]>(environment.base_url)
       .pipe(
         tap(heroes => console.log('fetched products')),
         catchError(this.handleError('getProducts', []))
@@ -48,7 +48,7 @@ export class ComisionApiService {
   }
   
   getComision(id: number): Observable<Comisiones> {
-    const url = `${URL_API}/${id}`;
+    const url = `${environment.base_url}/${id}`;
     return this.http.get<Comisiones>(url).pipe(
       tap(_ => console.log(`fetched product id=${id}`)),
       catchError(this.handleError<Comisiones>(`getProduct id=${id}`))
@@ -56,7 +56,7 @@ export class ComisionApiService {
   }
   
   addComision (comision:Comisiones): Observable<any> {
-    return this.http.post<Comisiones>(URL_API + 'comisiones', comision, this.httpOptions)
+    return this.http.post<Comisiones>(environment.base_url + 'comisiones', comision, this.httpOptions)
     .pipe(
       tap((comision: Comisiones) => console.log(`added product w/ id=${ comision.id }`)),
       catchError(this.handleError<Comisiones>('addProduct'))
@@ -65,7 +65,7 @@ export class ComisionApiService {
 
   
   updateComision (id, product): Observable<any> {
-    const url = `${URL_API}/${id}`;
+    const url = `${environment.base_url}/${id}`;
     return this.http.put(url, product, this.httpOptions).pipe(
       tap(_ => console.log(`updated product id=${id}`)),
       catchError(this.handleError<any>('updateProduct'))
@@ -73,9 +73,9 @@ export class ComisionApiService {
   }
   
   deleteComision (id): Observable<Comisiones> {
-    const url = `${URL_API}/${id}`;
+    const url = `${environment.base_url}/${id}`;
   
-    return this.http.delete<Comisiones>(URL_API + 'comisiones/' + id, this.httpOptions).pipe(
+    return this.http.delete<Comisiones>(environment.base_url + 'comisiones/' + id, this.httpOptions).pipe(
       tap(_ => console.log(`deleted product id=${id}`)),
       catchError(this.handleError<Comisiones>('deleteProduct'))
     );

@@ -31,7 +31,7 @@ export class ListaComisionService {
 
   // obtener todos los registros de las comisiones
   getAllComisiones(): Observable<ComisionLista[]> {
-    return this.https.get<ComisionLista[]>(environment.API_PATH + 'comisiones', this.httpOptions).pipe(
+    return this.https.get<ComisionLista[]>(environment.base_url + 'comisiones', this.httpOptions).pipe(
       tap(heroes => console.log('mostrar comisiones')));
   }
 }

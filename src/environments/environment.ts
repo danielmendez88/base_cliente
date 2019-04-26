@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  API_PATH: 'http://localhost:8000/api/',
-  base_url: 'http://127.0.0.1:8000/api/v1'
+  API_PATH: 'http://polifacturascdelsureste.ddns.net:8080/api/v1/',
+  base_url: 'http://polifacturascdelsureste.ddns.net:8080/api/'
 };
 
 /*
