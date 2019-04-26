@@ -1,0 +1,21 @@
+<mat-toolbar color="primary" >
+  <div fxHide.gt-xs>
+    <button mat-icon-button (click)="toggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div><a routerLink="/">Integra App</a></div>
+  <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+    <ul fxLayout fxLayoutGap="10px" class="navigation-items">
+      
+        <ng-template [ngIf]="!isAuthenticated">
+        
+        <li><a routerLink="/login">Iniciar sesión</a></li>
+        </ng-template>
+        <ng-template [ngIf]="isAuthenticated">
+          <li><a style="cursor:pointer" (click)="logout()">Cerrar sesión</a></li>
+        </ng-template>
+        
+    </ul>
+  </div>
+</mat-toolbar>
