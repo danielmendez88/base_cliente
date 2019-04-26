@@ -1,9 +1,4 @@
-.example-container {
-  display: flex;
-  flex-direction: column;
-  max-height: 400px;
-  min-width: 70%;
-}
+
 .card {
   min-width: 70%;
 }
@@ -11,11 +6,17 @@
   font-size: 14px;
   width: 100%;
 }
-table {
+mat-table {
   width: 100%;
 }
-td, th {
-  width: 25%;
+mat-cell {
+  word-wrap: break-word !important;
+  word-break: break-word;
+  text-overflow: ellipsis;
+}
+mat-header-cell{
+  width: 20%;
+  font-weight: bold;
 }
 .spinner-container {
   display: flex;
@@ -31,4 +32,47 @@ td, th {
   position: fixed;
   bottom: 30px;
   right: 30px;
+}
+
+@media screen and (max-width: 960px) {
+  .mat-table {
+    border: 0;
+    vertical-align: middle
+  }
+
+  .mat-table caption {
+    font-size: 1em;
+  }
+
+  .mat-table .mat-row {
+    border-bottom: 7px solid #ddd;
+    display: block;
+  }
+
+  .mat-table .mat-cell {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 1em;
+    text-align: right;
+    font-weight: bold;
+    height:30px;
+    margin-bottom: 4%;
+    margin-left: 15px;
+    margin-right: 18px;
+  }
+  .mat-table .mat-cell:before {
+
+    content: attr(data-label);
+    float: left;
+    text-transform: uppercase;
+    font-weight: normal;
+
+    font-size: .85em;
+  }
+  .mat-table .mat-cell:last-child {
+    border-bottom: 0;
+  }
+    .mat-table .mat-cell:first-child {
+    margin-top: 4%;
+  }
 }
