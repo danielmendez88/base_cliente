@@ -30,7 +30,7 @@ mat-header-cell{
 .tab-actions {
   display: inline-block;
   position: fixed;
-  bottom: 30px;
+  bottom: 50px;
   right: 30px;
 }
 
