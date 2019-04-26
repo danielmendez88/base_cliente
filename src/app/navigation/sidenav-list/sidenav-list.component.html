@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <mat-icon>fingerprint</mat-icon><span>&nbsp;</span><span>Salud ID</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-nav-list>
+  <ng-template [ngIf]="!isAuthenticated">
+    <a mat-list-item routerLink="/signup" (click)="close()">
+      <mat-icon>check_circle</mat-icon>
+      <span class="nav-caption">Registrarme</span>
+    </a>
+    <a mat-list-item routerLink="/login" (click)="close()">
+      <mat-icon>fingerprint</mat-icon>
+      <span class="nav-caption">Iniciar sesión</span>
+    </a>
+  </ng-template>
+  <ng-template [ngIf]="isAuthenticated">
+    <a mat-list-item  (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      <span class="nav-caption">Cerrar sesión</span>
+    </a>
+  </ng-template>
+</mat-nav-list>
