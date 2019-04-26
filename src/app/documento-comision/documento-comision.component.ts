@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 const pdfMake = require('pdfmake/build/pdfmake.js');
 const pdfFonts = require('pdfmake/build/vfs_fonts.js');
@@ -12,9 +12,10 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 })
 export class DocumentoComisionComponent implements OnInit {
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
+    
     const docDefinition = {
       content: [
         {
@@ -352,7 +353,7 @@ export class DocumentoComisionComponent implements OnInit {
       }
     };
     const pdf = pdfMake.createPdf(docDefinition).open();
-    // download('formatoComision.pdf');
+    //pdfMake.download(pdf);
   }
 
 }

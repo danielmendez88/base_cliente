@@ -11,15 +11,15 @@ import { AppComponent } from './app.component';
 
 import { MaterialModule } from './Material/materia.module';
 import { AgendaComponent } from './agenda/agenda.component';
+import { ComisionesListaComponent, DialogUploadFile } from './comisiones-lista/comisiones-lista.component';
 import { ComisionesComponent } from './comisiones/comisiones.component';
 import { DetalleAgendaComponent, DialogOAgendaOverview } from './detalle-agenda/detalle-agenda.component';
+import { DocumentoComisionComponent } from './documento-comision/documento-comision.component';
 import { EditAgendaComponent } from './edit-agenda/edit-agenda.component';
 import { NuevoUsuarioComponent } from './nuevo-usuario/nuevo-usuario.component';
 import { Page404Component } from './page404/page404.component';
 import { DataApiService } from './services/data-api.service';
-// formularios
-import { DocumentoComisionComponent } from './documento-comision/documento-comision.component';
-import { ComisionesListaComponent, DialogUploadFile } from './comisiones-lista/comisiones-lista.component';
+import { SharedService } from './shared/shared.service';
 
 
 @NgModule({
@@ -52,6 +52,7 @@ import { ComisionesListaComponent, DialogUploadFile } from './comisiones-lista/c
       provide: MAT_STEPPER_GLOBAL_OPTIONS,
       useValue: { showError: true }
     },
+    SharedService
 
 
   ],

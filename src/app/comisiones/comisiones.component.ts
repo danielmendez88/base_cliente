@@ -1,9 +1,11 @@
-import { Component, OnInit, OnDestroy, Input, Output, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { FormGroup, FormControl, Validators, AbstractControl, FormArray, FormBuilder, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import * as _moment from 'moment';
+
+import { SharedService } from 'src/app/shared/shared.service';
 
 import { ComisionApiService } from '../services/comision-api.service';
 
@@ -40,7 +42,8 @@ export class ComisionesComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public comision: ComisionApiService,
-    public router: Router
+    public router: Router,
+    private sharedService: SharedService
     ) {
   }
 
@@ -189,15 +192,23 @@ export class ComisionesComponent implements OnInit {
       .subscribe(res => {
           let id = res['id'];
 
-          console.log("aca", res);
-
           this.isLoadingResults = false;
           this.formulario.reset();
-          //comisiones/list
+
+          var Message = "¡Exito! Comision Registrada";
+
+          this.sharedService.showSnackBar(Message, null, 7000);
           this.router.navigate(['/comisiones/list']);
 
-        }, (err) => {
-          console.log(err);
+        }, (error) => {
+
+          console.log(error);
+          var errorMessage = "Error al Registrar Comision";
+
+          if(error.status != 200){
+            errorMessage = "Ocurrió un error.";
+          }
+          this.sharedService.showSnackBar(errorMessage, null, 9000);
           this.isLoadingResults = false;
         });
   }
