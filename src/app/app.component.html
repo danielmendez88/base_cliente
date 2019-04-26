@@ -16,6 +16,7 @@
         <mat-menu #menu="matMenu"  >
           <button mat-menu-item [routerLink]="['/comisiones/list']">Listado de Comisiones</button>
           <button mat-menu-item [routerLink]="['/comisiones/nuevo']">Generar Comision</button>
+          <button mat-menu-item (click)="logout()">Cerrar Sesion</button>
         </mat-menu>
 
   </mat-toolbar-row>

@@ -17,6 +17,7 @@ import { LoginComponent } from './auth/login/login.component';
 const routes: Routes = [
   // { path: '', component: WelcomeComponent },//pantalla de inicio
   { path: '', component: LoginComponent , }, // login
+  { path: 'login', component: LoginComponent , },
   { path: 'agenda', component: AgendaComponent, },
   { path: 'comisiones/list', component: ComisionesListaComponent , }, // comisiones lista
   { path: 'comisiones/nuevo', component: ComisionesComponent, },
