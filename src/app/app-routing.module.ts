@@ -11,6 +11,7 @@ import { NuevoUsuarioComponent } from './nuevo-usuario/nuevo-usuario.component';
 import { Page404Component } from './page404/page404.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { LoginComponent } from './auth/login/login.component';
+import { DocumentoComisionComponent } from './documento-comision/documento-comision.component';
 
 
 
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'comisiones/list', component: ComisionesListaComponent , }, // comisiones lista
   { path: 'comisiones/nuevo', component: ComisionesComponent, },
   { path: 'comisiones/:id', component: DetalleAgendaComponent, },
+  { path: 'documentopdf', component: DocumentoComisionComponent, },
   { path: '**', component: Page404Component},
 
 ];

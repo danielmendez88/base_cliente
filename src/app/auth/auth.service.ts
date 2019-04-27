@@ -79,5 +79,6 @@ export class AuthService {
     localStorage.removeItem('nombre');
     this.authChange.next(false);
     this.router.navigate(['/']);
+    
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { FormGroup, FormControl, Validators, AbstractControl, FormArray, FormBuilder, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -8,6 +8,7 @@ import * as _moment from 'moment';
 import { SharedService } from 'src/app/shared/shared.service';
 
 import { ComisionApiService } from '../services/comision-api.service';
+import { longStackSupport } from 'q';
 
 
 
@@ -39,6 +40,11 @@ export class ComisionesComponent implements OnInit {
 
   formulario: FormGroup;
 
+ 
+  miguel: any= "Hola Mundo!";
+
+ 
+
   constructor(
     private fb: FormBuilder,
     public comision: ComisionApiService,
@@ -46,11 +52,11 @@ export class ComisionesComponent implements OnInit {
     private sharedService: SharedService
     ) {
   }
-
+  
   ngOnInit() {
-
+  this.miguel="cambio de valor";
     var fecha = _moment(this.defaultDate).format('YYYY-MM-D');
-
+    
     this.formulario = new FormGroup({
 
 
@@ -113,9 +119,7 @@ export class ComisionesComponent implements OnInit {
       importe: [''],
     };
 
-    console.log(this.formulario.value);
-
-    console.log(this.defaultDate);
+    
 
 
   }
@@ -183,22 +187,28 @@ export class ComisionesComponent implements OnInit {
 
 
   }
+valor(dato:any)
+{
+this.miguel="estoy en la funcion de valor";
 
+}
   onSubmit(formComision:NgForm) {
-
+    
     this.isLoadingResults = true;
-
+  
     this.comision.addComision(formComision.value)
       .subscribe(res => {
-          let id = res['id'];
 
+         
+         
+          this.miguel="valor en el router de pdf";
           this.isLoadingResults = false;
           this.formulario.reset();
-
+         
           var Message = "¡Exito! Comision Registrada";
-
+          
           this.sharedService.showSnackBar(Message, null, 7000);
-          this.router.navigate(['/comisiones/list']);
+          this.router.navigate(['/documentopdf']);
 
         }, (error) => {
 
@@ -210,6 +220,7 @@ export class ComisionesComponent implements OnInit {
           }
           this.sharedService.showSnackBar(errorMessage, null, 9000);
           this.isLoadingResults = false;
+         
         });
   }
 
