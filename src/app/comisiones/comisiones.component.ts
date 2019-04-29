@@ -44,9 +44,9 @@ export class ComisionesComponent implements OnInit {
 
   formulario: FormGroup;
 
- 
+
   miguel: any= "Hola Mundo!";
-  
+
 
 
   constructor(
@@ -56,11 +56,11 @@ export class ComisionesComponent implements OnInit {
     private sharedService: SharedService
     ) {
   }
-  
+
   ngOnInit() {
   this.miguel="cambio de valor";
     var fecha = _moment(this.defaultDate).format('YYYY-MM-D');
-    
+
     this.formulario = new FormGroup({
 
 
@@ -123,7 +123,7 @@ export class ComisionesComponent implements OnInit {
       importe: [''],
     };
 
-    
+
 
 
   }
@@ -193,11 +193,11 @@ export class ComisionesComponent implements OnInit {
   }
 
   onSubmit(formComision:NgForm) {
-    
- 
+
+
 
     this.isLoadingResults = true;
-  
+
     this.comision.addComision(formComision.value)
       .subscribe(res => {
 
@@ -207,13 +207,13 @@ export class ComisionesComponent implements OnInit {
 
           console.log(this.datos);
 
-      this.crearpdf(res[0]);    
+      this.crearpdf(res[0]);
 
           this.isLoadingResults = false;
           //this.formulario.reset();
-         
+
           var Message = "¡Exito! Comision Registrada";
-          
+
           this.sharedService.showSnackBar(Message, null, 7000);
           //this.router.navigate(['/comisiones/list']);
 
@@ -227,10 +227,10 @@ export class ComisionesComponent implements OnInit {
           }
           this.sharedService.showSnackBar(errorMessage, null, 9000);
           this.isLoadingResults = false;
-         
+
         });
 
-        
+
   }
 
 crearpdf(valor:any)
@@ -362,7 +362,7 @@ sourceData.lugares_comision.forEach(element => {
         }
       },
       {
-        
+
         // generar tabla para lugares comision
         style: 'body_tableII',
         color: '#444',
@@ -557,9 +557,9 @@ sourceData.lugares_comision.forEach(element => {
         margin: [8, 2, 0, 0] // margen left, top, right, bottom
       }
     }
-  
+
   }
-    
+
   const pdf = pdfMake.createPdf(docDefinition).open();
   //pdfMake.download(pdf);
 
