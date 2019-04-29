@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit, NgZone } from '@angular/core';
 import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { FormGroup, FormControl, Validators, AbstractControl, FormArray, FormBuilder, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -8,6 +8,8 @@ import * as _moment from 'moment';
 import { SharedService } from 'src/app/shared/shared.service';
 
 import { ComisionApiService } from '../services/comision-api.service';
+// agregar filesaver
+import { filesaver } from 'file-saver';
 
 
 
@@ -25,16 +27,24 @@ import { ComisionApiService } from '../services/comision-api.service';
 })
 export class ComisionesComponent implements OnInit {
 
+  pdfworker: Worker;
+  cargandoPdf: any = {};
+  cargandoComision = false;
+  errorPDFComision = false;
+
+  // tslint:disable-next-line:new-parens
   defaultDate = new Date;
   isLoadingResults = false;
   total: number;
-  checked: boolean = true;
-  @ViewChild('importes') importes:ElementRef;
-  @ViewChild('cuota') cuota:ElementRef;
-  @ViewChild('dias') dias:ElementRef;
+  checked = true;
+  @ViewChild('importes') importes: ElementRef;
+  @ViewChild('cuota') cuota: ElementRef;
+  @ViewChild('dias') dias: ElementRef;
 
-  //@Output() public eventoImporte: EventEmitter = new EventEmitter();
 
+  // @Output() public eventoImporte: EventEmitter = new EventEmitter();
+
+  // tslint:disable-next-line:variable-name
   form_lugares_comision: any;
 
   formulario: FormGroup;
@@ -43,13 +53,19 @@ export class ComisionesComponent implements OnInit {
     private fb: FormBuilder,
     public comision: ComisionApiService,
     public router: Router,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private Ngzone: NgZone
     ) {
   }
 
   ngOnInit() {
 
-    var fecha = _moment(this.defaultDate).format('YYYY-MM-D');
+    const fecha = _moment(this.defaultDate).format('YYYY-MM-D');
+
+    // inicializamos el objeto worker
+    this.pdfworker = new Worker('../../web-workers/comisiones.js');
+    const self = this;
+    const $ngZone = this.Ngzone;
 
     this.formulario = new FormGroup({
 
@@ -117,9 +133,31 @@ export class ComisionesComponent implements OnInit {
 
     console.log(this.defaultDate);
 
+    // tslint:disable-next-line:only-arrow-functions
+    this.pdfworker.onmessage = function(evt) {
+      // esto es un hack porque estamos fuera de contexto dentro del worker
+      // y se utiliza para actualizar algunas variables
+      $ngZone.run(() => {
+        console.log(evt);
+        self.cargandoComision = false;
+      });
+      filesaver.saveAs( self.base64ToBlob( evt.data.base64, 'application/pdf' ), evt.data.fileName);
+    };
+
+    // tslint:disable-next-line:only-arrow-functions
+    this.pdfworker.onerror = function( e ) {
+
+      $ngZone.run(() => {
+        console.log(e);
+        self.errorPDFComision = true;
+        // self.cargandoPdf[error.tipoPedido] = false;
+      });
+
+    };
 
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewInit() {
     this.defaultDate = new Date();
   }
@@ -137,7 +175,7 @@ export class ComisionesComponent implements OnInit {
 
     this.formulario.controls.lugares_comision.value.forEach(element => {
 
-      this.total-= parseFloat(element.importe);
+      this.total -= parseFloat(element.importe);
 
       this.formulario.controls.total.setValue(this.total);
 
@@ -145,7 +183,7 @@ export class ComisionesComponent implements OnInit {
 
 
     });
-    //modelo.removeAt(i);
+    // modelo.removeAt(i);
   }
 
 
@@ -155,7 +193,7 @@ export class ComisionesComponent implements OnInit {
 
     this.formulario.controls.lugares_comision.value.forEach(element => {
 
-      this.total+= parseFloat(element.importe);
+      this.total += parseFloat(element.importe);
 
       this.formulario.controls.total.setValue(this.total);
 
@@ -184,33 +222,56 @@ export class ComisionesComponent implements OnInit {
 
   }
 
-  onSubmit(formComision:NgForm) {
+  onSubmit(formComision: NgForm) {
 
     this.isLoadingResults = true;
 
     this.comision.addComision(formComision.value)
       .subscribe(res => {
+          // tslint:disable-next-line:no-string-literal
           let id = res['id'];
 
           this.isLoadingResults = false;
           this.formulario.reset();
 
-          var Message = "¡Exito! Comision Registrada";
+          const Message = '¡Exito! Comision Registrada';
 
           this.sharedService.showSnackBar(Message, null, 7000);
-          this.router.navigate(['/comisiones/list']);
+          // this.router.navigate(['/comisiones/list']);
+          try {
+            const comisionImprimir = {
+
+            };
+            this.pdfworker.postMessage(JSON.stringify(comisionImprimir));
+          } catch (error) {
+            console.log(error);
+          }
 
         }, (error) => {
 
           console.log(error);
-          var errorMessage = "Error al Registrar Comision";
+          // tslint:disable-next-line:no-var-keyword
+          var errorMessage = 'Error al Registrar Comision';
 
-          if(error.status != 200){
-            errorMessage = "Ocurrió un error.";
+          if (error.status !== 200) {
+            errorMessage = 'Ocurrió un error.';
           }
           this.sharedService.showSnackBar(errorMessage, null, 9000);
           this.isLoadingResults = false;
         });
+  }
+
+  base64ToBlob(base64, type) {
+    const bytes = atob(base64);
+    const len = bytes.length;
+    const buffer = new ArrayBuffer( len );
+    const view = new Uint8Array(buffer);
+    for (let i = 0; i < len; i++) {
+      // tslint:disable-next-line:no-bitwise
+      view[i] = bytes.charCodeAt(i) & 0xff;
+    }
+    // tslint:disable-next-line:object-literal-shorthand
+    return new Blob([ buffer ], { type: type });
   }
 
 

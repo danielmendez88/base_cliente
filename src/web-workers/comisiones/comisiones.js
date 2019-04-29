@@ -361,7 +361,7 @@ importScripts('../logo.js');
           }
         }
       };
-      pdfmake.createPdf(dd);
+      pdfmake.createPdf(dd).print();
     } catch (e) {
       console.log(e);
       throw {error: e};
