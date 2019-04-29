@@ -215,7 +215,7 @@ export class ComisionesComponent implements OnInit {
           var Message = "¡Exito! Comision Registrada";
           
           this.sharedService.showSnackBar(Message, null, 7000);
-          //this.router.navigate(['/comisiones/list']);
+          this.router.navigate(['/comisiones/list']);
 
         }, (error) => {
 
@@ -331,7 +331,7 @@ sourceData.lugares_comision.forEach(element => {
           widths: [160, 160, 76, 75],
           body: [
             [
-              { border: [true, false, true, true], text: 'NOMBRE COMISIONADO:', style: 'tbody'},
+              {border: [true, false, true, true], text: 'NOMBRE COMISIONADO:', style: 'tbody'},
               {border: [true, false, true, true], text: 'CATEGORÍA', style: 'tbody'},
               {border: [true, false, true, true], text: 'R.F.C.', style: 'tbody'},
               {border: [true, false, true, true], text: 'Teléfono y Ext', style: 'tbody'}
@@ -362,6 +362,31 @@ sourceData.lugares_comision.forEach(element => {
         }
       },
       {
+        // generar parte de la tabla
+        style: 'body_tableII',
+        color: '#444',
+        table: {
+          widths: [160, 65, 65, 60, 48, 55],
+          body: [
+            [
+              { border: [true, false, true, true], text: 'Lugar (es) de Comisión', style: 'tbody', rowSpan: 2},
+                { border: [true, false, true, true], text: 'Periodo', style: 'tbody', colSpan: 2},
+                {},
+                { border: [true, false, true, true], text: 'Cuota Diaria de Viáticos', style: 'tbody', rowSpan: 2},
+                { border: [true, false, true, true], text: 'Total en Días', style: 'tbody', rowSpan: 2},
+                { border: [true, false, true, true], text: 'Importe', style: 'tbody', rowSpan: 2}
+            ],
+            [
+              {},
+              {border: [true, false, false, true],text: 'Inicio', style: 'tbody'},
+              {border: [true, false, true, true],text: 'Término', style: 'tbody'},
+              {}, {}, {}
+            ],
+            
+          ]
+        }
+      },
+      {
         
         // generar tabla para lugares comision
         style: 'body_tableII',
@@ -369,6 +394,22 @@ sourceData.lugares_comision.forEach(element => {
         table: {
           widths: [160, 65, 65, 60, 48, 55],
           body: bodyData
+        }
+      },
+
+      {
+        // generar parte de la tabla
+        style: 'body_tableII',
+        color: '#444',
+        table: {
+          widths: [160, 65, 65, 60, 48, 55],
+          body: [
+            [
+              {border: [true, false, true, true],text: 'Total: $', style: 'tbodyTotal', colSpan: 5},
+                {}, {}, {}, {},
+                {border: [true, false, true, true],text: valor.total, style: 'tbodyTotal'}],
+            
+          ]
         }
       },
       {
