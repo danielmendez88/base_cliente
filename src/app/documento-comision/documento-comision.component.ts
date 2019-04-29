@@ -2,6 +2,7 @@ import { Component, OnInit, NgZone  } from '@angular/core';
 // agregar nuevo
 import { FileSaver } from 'file-saver';
 import { ListaComisionService } from '../services/lista-comision.service';
+import { Comisiones } from '../models/comisiones';
 
 const pdfMake = require('pdfmake/build/pdfmake.js');
 const pdfFonts = require('pdfmake/build/vfs_fonts.js');
@@ -15,13 +16,14 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 })
 export class DocumentoComisionComponent implements OnInit {
 
-  // # SECCION: Reportes
+  // # SECCION: Reportes - declaracion
   pdfworker: Worker;
   cargandoPdf: any = {};
   errorEnPDF = false;
   pdfworkerComision: Worker;
   cargandoComision = false;
   errorPDFComision = false;
+  comision: Comisiones;
   // # FIN SECCION
 
   constructor(
@@ -33,6 +35,7 @@ export class DocumentoComisionComponent implements OnInit {
 
   ngOnInit() {
 
+    // inicalizamos el objeto para los reportes con el web workers
     this.pdfworker = new Worker('../../web-workers/comisiones/comisiones.js ');
 
     const self = this;
@@ -48,7 +51,7 @@ export class DocumentoComisionComponent implements OnInit {
 
       $ngZone.run(() => {
         console.log(evt);
-        self.cargandoPdf[evt.data.tipoPedido] = false;
+        self.cargandoPdf[evt.data.no_comision] = false;
       });
 
       FileSaver.saveAs( self.base64ToBlob( evt.data.base64, 'application/pdf' ), evt.data.fileName );
@@ -94,8 +97,8 @@ export class DocumentoComisionComponent implements OnInit {
     // console.log(e)
 
     };
-    // const docDefinition = {
-    // };
+
+    // iniciamos la comision
   }
 
     base64ToBlob(base64, type) {
