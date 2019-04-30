@@ -10,6 +10,7 @@ import * as _moment from 'moment';
 import { SharedService } from 'src/app/shared/shared.service';
 
 import { ComisionApiService } from '../services/comision-api.service';
+import { ListaComisionService } from '../services/lista-comision.service';
 
 const pdfMake = require('pdfmake/build/pdfmake.js');
 const pdfFonts = require('pdfmake/build/vfs_fonts.js');
@@ -30,41 +31,34 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 })
 export class ComisionesComponent implements OnInit {
 
-  datos:any= "fuck";
+  ultimoID:number = 0;
   defaultDate = new Date;
   isLoadingResults = false;
   total: number;
-  
   checked: boolean = true;
   @ViewChild('importes') importes:ElementRef;
   @ViewChild('cuota') cuota:ElementRef;
   @ViewChild('dias') dias:ElementRef;
-
-
   fechaInicio:any;
   fechaTermino:any;
-
   //@Output() public eventoImporte: EventEmitter = new EventEmitter();
-
   form_lugares_comision: any;
-
   formulario: FormGroup;
-
- 
-  miguel: any= "Hola Mundo!";
-  
-
 
   constructor(
     private fb: FormBuilder,
     public comision: ComisionApiService,
     public router: Router,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private listaComisiones: ListaComisionService
     ) {
   }
   
   ngOnInit() {
-  this.miguel="cambio de valor";
+
+    this.generarNoComision();
+
+
     var fecha = _moment(this.defaultDate).format('YYYY-MM-D');
     
     this.formulario = new FormGroup({
@@ -81,7 +75,7 @@ export class ComisionesComponent implements OnInit {
       'user_id':                        new FormControl (1),
       'motivo_comision':                new FormControl ('', [Validators.required]),
       'no_memorandum':                  new FormControl ('', [Validators.required]),
-      'no_comision':                    new FormControl ('', [Validators.required]),
+      'no_comision':                    new FormControl ('',[Validators.required]),
       'nombre_proyecto':                new FormControl ('', [Validators.required]),
       'es_vehiculo_oficial':            new FormControl (''),
       'total':                          new FormControl ('', [Validators.required]),
@@ -129,8 +123,17 @@ export class ComisionesComponent implements OnInit {
       importe: [''],
     };
 
-    
+  }
 
+  generarNoComision(){
+
+    this.listaComisiones.getAllComisiones().subscribe(res => {
+
+      let fechaActual = _moment(this.defaultDate).format('YYYY/MM/D');
+      this.ultimoID = res.pop().id + 1;
+      this.formulario.controls.no_comision.setValue('IV/'+fechaActual+'/'+this.ultimoID);
+
+    });
 
   }
 
@@ -226,12 +229,6 @@ export class ComisionesComponent implements OnInit {
   
     this.comision.addComision(formComision.value)
       .subscribe(res => {
-
-          console.log(res[0]);
-
-          this.datos = res[0];
-
-          console.log(this.datos);
 
           this.crearpdf(res[0]);    
 

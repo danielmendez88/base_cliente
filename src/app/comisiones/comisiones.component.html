@@ -16,7 +16,7 @@
                                     </mat-form-field>
 
                                     <mat-form-field fxFlex>
-                                        <input type="text" matInput placeholder="N° Comision" formControlName="no_comision">
+                                        <input type="text" matInput placeholder="N° Comision" formControlName="no_comision" readonly>
                                         <mat-error>Campo Requerido</mat-error>
                                     </mat-form-field>
 
@@ -133,7 +133,7 @@
                                             </mat-form-field>
 
                                             <mat-form-field fxFlex>
-                                                <input  type="date" matInput placeholder="Fecha Inicio" formControlName="fecha_inicio">
+                                                <input  type="date" matInput placeholder="Fecha Inicio"  (change)="generarDias(i);" formControlName="fecha_inicio">
                                                 <mat-error>Error: Seleccione la fecha</mat-error>
                                             </mat-form-field>
 
