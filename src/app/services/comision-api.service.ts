@@ -4,9 +4,8 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 
-import { Comisiones } from '../models/comisiones';
 import { ComisionesComponent } from '../comisiones/comisiones.component';
-
+import { Comisiones } from '../models/comisiones';
 import { environment } from '../../environments/environment';
 
 
@@ -56,12 +55,13 @@ export class ComisionApiService {
   }
   
   addComision (comision:Comisiones): Observable<any> {
-    return this.http.post<Comisiones>(environment.base_url + 'comisiones', comision, this.httpOptions)
-    .pipe(
-      tap((comision: Comisiones) => console.log(`added product w/ id=${ comision.id }`)),
-      catchError(this.handleError<Comisiones>('addProduct'))
-    );
+    return this.http.post<Comisiones>(environment.base_url + 'comisiones', comision, this.httpOptions) 
+    .pipe(map(
+      data => data
+    ) );
   }
+
+
 
   
   updateComision (id, product): Observable<any> {

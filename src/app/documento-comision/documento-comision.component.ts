@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { ComisionesComponent } from "../comisiones/comisiones.component";
 import { NgForm } from '@angular/forms';
+
+import { ComisionesComponent } from "../comisiones/comisiones.component";
 const pdfMake = require('pdfmake/build/pdfmake.js');
 const pdfFonts = require('pdfmake/build/vfs_fonts.js');
 
@@ -18,7 +19,14 @@ export class DocumentoComisionComponent implements AfterViewInit {
 
   @ViewChild(ComisionesComponent) datocomision;
 
-  constructor() {}
+  datos;
+  message:string;
+  constructor(
+    private data: ComisionesComponent
+  ) {
+    
+
+  }
 
     valor :any;
 

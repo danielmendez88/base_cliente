@@ -1,14 +1,16 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { FormGroup, FormControl, Validators, AbstractControl, FormArray, FormBuilder, NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
+
+import { longStackSupport } from 'q';
 
 import * as _moment from 'moment';
 
 import { SharedService } from 'src/app/shared/shared.service';
 
 import { ComisionApiService } from '../services/comision-api.service';
-import { longStackSupport } from 'q';
+import { ListaComisionService } from '../services/lista-comision.service';
 
 const pdfMake = require('pdfmake/build/pdfmake.js');
 const pdfFonts = require('pdfmake/build/vfs_fonts.js');
@@ -29,7 +31,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 })
 export class ComisionesComponent implements OnInit {
 
-  datos:any= "fuck";
+  ultimoID:number = 0;
   defaultDate = new Date;
   isLoadingResults = false;
   total: number;
@@ -37,28 +39,26 @@ export class ComisionesComponent implements OnInit {
   @ViewChild('importes') importes:ElementRef;
   @ViewChild('cuota') cuota:ElementRef;
   @ViewChild('dias') dias:ElementRef;
-
+  fechaInicio:any;
+  fechaTermino:any;
   //@Output() public eventoImporte: EventEmitter = new EventEmitter();
-
   form_lugares_comision: any;
-
   formulario: FormGroup;
-
- 
-  miguel: any= "Hola Mundo!";
-  
-
 
   constructor(
     private fb: FormBuilder,
     public comision: ComisionApiService,
     public router: Router,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private listaComisiones: ListaComisionService
     ) {
   }
   
   ngOnInit() {
-  this.miguel="cambio de valor";
+
+    this.generarNoComision();
+
+
     var fecha = _moment(this.defaultDate).format('YYYY-MM-D');
     
     this.formulario = new FormGroup({
@@ -75,7 +75,7 @@ export class ComisionesComponent implements OnInit {
       'user_id':                        new FormControl (1),
       'motivo_comision':                new FormControl ('', [Validators.required]),
       'no_memorandum':                  new FormControl ('', [Validators.required]),
-      'no_comision':                    new FormControl ('', [Validators.required]),
+      'no_comision':                    new FormControl ('',[Validators.required]),
       'nombre_proyecto':                new FormControl ('', [Validators.required]),
       'es_vehiculo_oficial':            new FormControl (''),
       'total':                          new FormControl ('', [Validators.required]),
@@ -123,10 +123,20 @@ export class ComisionesComponent implements OnInit {
       importe: [''],
     };
 
-    
+  }
 
+  generarNoComision(){
+
+    this.listaComisiones.getAllComisiones().subscribe(res => {
+
+      let fechaActual = _moment(this.defaultDate).format('YYYY/MM/D');
+      this.ultimoID = res.pop().id + 1;
+      this.formulario.controls.no_comision.setValue('IV/'+fechaActual+'/'+this.ultimoID);
+
+    });
 
   }
+
 
   ngAfterViewInit() {
     this.defaultDate = new Date();
@@ -183,12 +193,31 @@ export class ComisionesComponent implements OnInit {
 
   }
 
-  updateDate(value: any) {
-    console.log(value.value);
+  generarDias(index:number){
 
-    this.formulario.controls.fecha.setValue(_moment(value.start).format('D/MM/YYYY'));
+      let diferenciaDias = 0;
 
 
+      this.fechaInicio =   _moment(this.formulario.controls.lugares_comision['controls'][index]['controls']['fecha_inicio'].value); 
+      this.fechaTermino =  _moment(this.formulario.controls.lugares_comision['controls'][index]['controls']['fecha_termino'].value);
+
+
+      diferenciaDias = parseInt(this.fechaTermino.diff(this.fechaInicio, 'days'));
+
+      if(diferenciaDias < 0){
+
+        this.formulario.controls.lugares_comision['controls'][index]['controls']['total_dias'].patchValue('');
+
+        alert('Seleccione las fechas de comisión correctas');
+
+        diferenciaDias = 0;
+        this.formulario.controls.lugares_comision['controls'][index]['controls']['total_dias'].patchValue('');
+
+      }
+      else{
+        this.formulario.controls.lugares_comision['controls'][index]['controls']['total_dias'].patchValue(diferenciaDias);
+      }
+    
 
   }
 
@@ -201,13 +230,7 @@ export class ComisionesComponent implements OnInit {
     this.comision.addComision(formComision.value)
       .subscribe(res => {
 
-          console.log(res[0]);
-
-          this.datos = res[0];
-
-          console.log(this.datos);
-
-      this.crearpdf(res[0]);    
+          this.crearpdf(res[0]);    
 
           this.isLoadingResults = false;
           //this.formulario.reset();
@@ -252,6 +275,10 @@ sourceData.lugares_comision.forEach(element => {
 });
 
 
+var resultado = valor.fecha.split("-");
+//[0] año
+//[1] mes
+//[2] dia
 
   var docDefinition = {
     content: [
@@ -284,7 +311,7 @@ sourceData.lugares_comision.forEach(element => {
             [{text: 'NÚMERO DE COMISIÓN', style: 'tableHeader', alignment: 'center', colSpan: 3}, {}, {}],
             [{text: 'UAA',  style: 'rows'}, {text: valor.no_comision,  style: 'rows'}, {text: '2017',  style: 'rows'}],
             [{text: 'Día',  style: 'rows'}, {text: 'Mes',  style: 'rows'}, {text: 'Año',  style: 'rows'}],
-            [{text: '29',  style: 'rows'}, {text: '04',  style: 'rows'}, {text: '2019',  style: 'rows'}],
+            [{text: resultado[2],  style: 'rows'}, {text: resultado[1],  style: 'rows'}, {text: resultado[0],  style: 'rows'}],
           ]
         }
 
