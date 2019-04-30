@@ -1,13 +1,19 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit, Input } from '@angular/core';
 import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { FormGroup, FormControl, Validators, AbstractControl, FormArray, FormBuilder, NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 import * as _moment from 'moment';
 
 import { SharedService } from 'src/app/shared/shared.service';
 
 import { ComisionApiService } from '../services/comision-api.service';
+
+
+const pdfMake = require('pdfmake/build/pdfmake.js');
+const pdfFonts = require('pdfmake/build/vfs_fonts.js');
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
 
@@ -28,10 +34,17 @@ export class ComisionesComponent implements OnInit {
   defaultDate = new Date;
   isLoadingResults = false;
   total: number;
+  
   checked: boolean = true;
   @ViewChild('importes') importes:ElementRef;
   @ViewChild('cuota') cuota:ElementRef;
   @ViewChild('dias') dias:ElementRef;
+
+
+  fechaInicio:any;
+  fechaTermino:any;
+
+  datos: any;
 
   //@Output() public eventoImporte: EventEmitter = new EventEmitter();
 
@@ -50,6 +63,7 @@ export class ComisionesComponent implements OnInit {
   ngOnInit() {
 
     var fecha = _moment(this.defaultDate).format('YYYY-MM-D');
+    
 
     this.formulario = new FormGroup({
 
@@ -113,12 +127,11 @@ export class ComisionesComponent implements OnInit {
       importe: [''],
     };
 
-    console.log(this.formulario.value);
-
-    console.log(this.defaultDate);
+    console.log("valor de dias",  this.formulario.controls.lugares_comision['controls'][0]['controls']['total_dias'].value);
 
 
   }
+
 
   ngAfterViewInit() {
     this.defaultDate = new Date();
@@ -175,12 +188,31 @@ export class ComisionesComponent implements OnInit {
 
   }
 
-  updateDate(value: any) {
-    console.log(value.value);
+  generarDias(index:number){
 
-    this.formulario.controls.fecha.setValue(_moment(value.start).format('D/MM/YYYY'));
+      let diferenciaDias = 0;
 
 
+      this.fechaInicio =   _moment(this.formulario.controls.lugares_comision['controls'][index]['controls']['fecha_inicio'].value); 
+      this.fechaTermino =  _moment(this.formulario.controls.lugares_comision['controls'][index]['controls']['fecha_termino'].value);
+
+
+      diferenciaDias = parseInt(this.fechaTermino.diff(this.fechaInicio, 'days'));
+
+      if(diferenciaDias < 0){
+
+        this.formulario.controls.lugares_comision['controls'][index]['controls']['total_dias'].patchValue('');
+
+        alert('Seleccione las fechas de comisión correctas');
+
+        diferenciaDias = 0;
+        this.formulario.controls.lugares_comision['controls'][index]['controls']['total_dias'].patchValue('');
+
+      }
+      else{
+        this.formulario.controls.lugares_comision['controls'][index]['controls']['total_dias'].patchValue(diferenciaDias);
+      }
+    
 
   }
 
@@ -190,15 +222,17 @@ export class ComisionesComponent implements OnInit {
 
     this.comision.addComision(formComision.value)
       .subscribe(res => {
-          let id = res['id'];
+
+          console.log(res.data);
 
           this.isLoadingResults = false;
-          this.formulario.reset();
+          //this.formulario.reset();
+
 
           var Message = "¡Exito! Comision Registrada";
 
           this.sharedService.showSnackBar(Message, null, 7000);
-          this.router.navigate(['/comisiones/list']);
+          //this.router.navigate(['/comisionPDF']);
 
         }, (error) => {
 
@@ -213,5 +247,5 @@ export class ComisionesComponent implements OnInit {
         });
   }
 
-
+  
 }

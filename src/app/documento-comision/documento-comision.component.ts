@@ -1,4 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
+import { ComisionesComponent } from "../comisiones/comisiones.component";
+
 
 const pdfMake = require('pdfmake/build/pdfmake.js');
 const pdfFonts = require('pdfmake/build/vfs_fonts.js');
@@ -12,9 +16,19 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 })
 export class DocumentoComisionComponent implements OnInit {
 
-  constructor() {}
+  datos;
+  message:string;
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private data: ComisionesComponent
+  ) {
+    
+
+  }
 
   ngOnInit() {
+
     
     const docDefinition = {
       content: [
