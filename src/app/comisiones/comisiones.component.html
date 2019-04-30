@@ -205,53 +205,62 @@
                 <section>
 
                     <h2 fxLayoutAlign="center center">
-              Importe de la comisión y recibos
-            </h2>
+                        Importe de la comisión y recibos
+                    </h2>
 
                     <div fxLayout="column">
 
-                        <mat-card>
+                        <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
 
-                            <mat-card-content>
-                                <div fxLayout.gt-sm="column" fxLayout="column" fxLayoutGap.gt-sm="10px">
-                                    <mat-form-field fxFlex>
-                                        <input type="number" matInput placeholder="Combustible" formControlName="total_combustible">
-                                        <mat-error>Campo Requerido</mat-error>
-                                    </mat-form-field>
+                            <mat-form-field fxFlex>
+                                <input type="number" matInput placeholder="Combustible" formControlName="total_combustible">
+                                <mat-error>Campo Requerido</mat-error>
+                            </mat-form-field>
+                
+                            <mat-form-field fxFlex>
+                                <input type="number" matInput placeholder="Fletes y Maniobras" formControlName="total_fletes_mudanza">
+                                <mat-error>Campo Requerido</mat-error>
+                            </mat-form-field>
 
-                                    <mat-form-field fxFlex>
-                                        <input type="number" matInput placeholder="Fletes y Maniobras" formControlName="total_fletes_mudanza">
-                                        <mat-error>Campo Requerido</mat-error>
-                                    </mat-form-field>
+                            <mat-form-field fxFlex>
+                                <input type="number" matInput placeholder="Peajes" formControlName="total_peaje">
+                                <mat-error>Campo Requerido</mat-error>
+                            </mat-form-field>
+                            
+                        </div>
 
-                                    <mat-form-field fxFlex>
-                                        <input type="number" matInput placeholder="Peajes" formControlName="total_peaje">
-                                        <mat-error>Campo Requerido</mat-error>
-                                    </mat-form-field>
+                        <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+                
+                            <mat-form-field fxFlex>
+                                <input type="number" matInput placeholder="Pasajes Nacionales" formControlName="total_pasajes_nacionales">
+                                <mat-error>Campo Requerido</mat-error>
+                            </mat-form-field>
 
-                                    <mat-form-field fxFlex>
-                                        <input type="number" matInput placeholder="Pasajes Nacionales" formControlName="total_pasajes_nacionales">
-                                        <mat-error>Campo Requerido</mat-error>
-                                    </mat-form-field>
+                            <mat-form-field fxFlex>
+                                <input type="number" matInput placeholder="Viaticos Nacionales" formControlName="total_viaticos_nacionales" readonly>
+                                <mat-error>Campo Requerido</mat-error>
+                            </mat-form-field>
 
-                                    <mat-form-field fxFlex>
-                                        <input type="number" matInput placeholder="Viaticos Nacionales" formControlName="total_viaticos_nacionales" readonly>
-                                        <mat-error>Campo Requerido</mat-error>
-                                    </mat-form-field>
+                            <mat-form-field fxFlex>
+                                <input type="number" matInput placeholder="Viaticos en el Extranjero" formControlName="total_viaticos_extranjeros">
+                                <mat-error>Campo Requerido</mat-error>
+                            </mat-form-field>
 
-                                    <mat-form-field fxFlex>
-                                        <input type="number" matInput placeholder="Viaticos en el Extranjero" formControlName="total_viaticos_extranjeros">
-                                        <mat-error>Campo Requerido</mat-error>
-                                    </mat-form-field>
 
-                                    <mat-form-field fxFlex>
-                                        <input type="number" matInput placeholder="Pasajes Internacionales" formControlName="total_pasajes_internacionales">
-                                        <mat-error>Campo Requerido</mat-error>
-                                    </mat-form-field>
+                        </div>
 
-                                </div>
-                            </mat-card-content>
-                        </mat-card>
+                        <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+
+                            <mat-form-field fxFlex>
+                                <input type="number" matInput placeholder="Pasajes Internacionales" formControlName="total_pasajes_internacionales">
+                                <mat-error>Campo Requerido</mat-error>
+                            </mat-form-field>
+                            
+                        </div>
+
+                    </div>
+
+                    <div fxLayout="column">
 
                         <mat-card>
 
@@ -294,7 +303,10 @@
                         </mat-card>
 
                     </div>
+
                 </section>
+
+                
 
                 <br>
 
