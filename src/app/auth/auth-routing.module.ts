@@ -11,10 +11,10 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 
 
 const routes: Routes = [
-  { path: 'signup', component: SignupComponent, canActivate: [GuessGuard] },
-  { path: 'login', component: LoginComponent, canActivate: [GuessGuard] },
-  { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [GuessGuard] },
-  { path: 'reset-password', component: ResetPasswordComponent, canActivate: [GuessGuard] },
+  { path: 'signup', component: SignupComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
 ]
 
 @NgModule({

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API_PATH: 'http://polifacturascdelsureste.ddns.net:8080/api/v1/',
+  API_PATH: 'http://polifacturascdelsureste.ddns.net:8080/api/v1',
   base_url: 'http://polifacturascdelsureste.ddns.net:8080/api/'
 };
 
